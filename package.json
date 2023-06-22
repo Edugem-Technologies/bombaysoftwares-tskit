@@ -1,0 +1,34 @@
+{
+  "name": "@bombaysoftwares/tskit",
+  "version": "1.0.0",
+  "description": "The @bombaysoftwares/tskit Utils package provides a set of utility functions for working with dates and timestamps in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, and JSON validation. This package is designed to enhance the functionality of various operations in your JavaScript projects",
+  "main": "index.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Edugem-Technologies/-bombaysoftwares-tskit"
+  },
+  "keywords": [
+    "utility",
+    "functions",
+    "date-time",
+    "datetime",
+    "date",
+    "time",
+    "parse",
+    "format",
+    "validate",
+    "util",
+    "helper",
+    "date-time-format"
+  ],
+  "author": "Bombay Softwares",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Edugem-Technologies/-bombaysoftwares-tskit/issues"
+  },
+  "homepage": "https://github.com/Edugem-Technologies/-bombaysoftwares-tskit/README.md.",
+  "devDependencies": {
+    "typescript": "^5.1.3",
+    "ts-node": "^10.9.1"
+  }
+}
