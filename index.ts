@@ -15,7 +15,7 @@ export const isSet = (obj: any): boolean => {
         return true;
     }
     return false;
-}
+};
 
 /**
 * This method checks if the value provided is "true" or true - 
@@ -30,7 +30,7 @@ export const isSet = (obj: any): boolean => {
 */
 export const evalBooleanValue = (value: string | boolean | undefined): boolean => {
     return (value === "true" || value === true) ? true : false;
-}
+};
 
 /**
 * This method returns current date time in YYYY-MM-DD HH:MM:SS format
@@ -47,7 +47,7 @@ export const getCurrentDateTime = (): string => {
     const minutes = date_ob.getMinutes();  // current minutes 
     const seconds = date_ob.getSeconds(); // current seconds
     return year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;  // prints date & time in YYYY-MM-DD HH:MM:SS format
-}
+};
 
 /**
  * Retrieves the current timestamp in seconds.
@@ -64,11 +64,10 @@ export const getCurrentDateTime = (): string => {
 export const getCurrentTimestamp = (date: Date | null = null): number => {
     if (isSet(date) && date instanceof Date) {
         return Math.floor(date.getTime() / 1000); // Divides the obtained time value by 1000 to convert it from milliseconds to seconds
-    }
-    else {
+    } else {
         return Math.floor(Date.now() / 1000);
     }
-}
+};
 
 /**
 * This method returns current date in YYYY-MM-DD format
@@ -82,7 +81,7 @@ export const getCurrentDate = () => {
     const month = ("0" + (date_ob.getMonth() + 1)).slice(-2); // current month
     const year = date_ob.getFullYear(); // current year
     return year + "-" + month + "-" + date; // prints date & time in YYYY-MM-DD format
-}
+};
 
 /**
  * Converts a timestamp or Date object to a formatted string representing the date and time IN YYYY-MM-DD hh:mm:ss AM/PM.
@@ -103,8 +102,7 @@ export const getUnixConvertedDateTime = ({ timestamp = null, dateObj = null }: {
         date_ob = dateObj;
     } else if (timestamp) {
         date_ob = new Date(timestamp * 1000); // Multiplied the obtained time value by 1000 to convert it from seconds to milliseconds
-    }
-    else {
+    } else {
         date_ob = new Date();
     }
     const date = ("0" + date_ob.getDate()).slice(-2); // adjust 0 before single digit date
@@ -112,45 +110,45 @@ export const getUnixConvertedDateTime = ({ timestamp = null, dateObj = null }: {
     const year = date_ob.getFullYear();
     let hours: number = date_ob.getHours();
     let minutes: string | number = date_ob.getMinutes();
-    // converting the hours to 12 hour formate
+    // converting the hours to 12 hour format
     const ampm = hours >= 12 ? "PM" : "AM";
-    let newHour = tweleveHourformate(hours);
+    let newHour = tweleveHourFormat(hours);
     minutes = minutes < 10 ? "0" + minutes : minutes;
     let seconds: string | number = date_ob.getSeconds();
     seconds = seconds < 10 ? "0" + seconds : seconds;
     return year + "-" + month + "-" + date + " " + newHour + ":" + minutes + ":" + seconds + " " + ampm;
-}
+};
 
 /**
  * Converts hours to twelve hour format.
  * @param {number} hours - The hours to be formatted.
  * @example 
- * tweleveHourformate(13); returns 01
- * getTwodigitFormate(9); returns 09
+ * tweleveHourFormat(13); returns 01
+ * tweleveHourFormat(9); returns 09
  * @returns {string} - The formatted hour as a string.
  */
-export const tweleveHourformate = (hours: number): string => {
+export const tweleveHourFormat = (hours: number): string => {
     hours = hours % 12;
     hours = hours ? hours : 12;
     return hours.toString().padStart(2, "0");
-}
+};
 
 /**
  * Converts a number to a two-digit format by adding a leading zero if necessary.
  * @param {number} data - The number to be formatted.
  * @example 
- * getTwodigitFormate(8); returns 08
- * getTwodigitFormate(9); returns 09
+ * getTwodigitFormat(8); returns 08
+ * getTwodigitFormat(9); returns 09
  * @example
- * getTwodigitFormate(10); returns 10
+ * getTwodigitFormat(10); returns 10
  * @returns {string | number} - The formatted number as a string if less than 10, otherwise the original number.
  */
-export const getTwodigitFormate = (data: number): string | number => {
+export const getTwodigitFormat = (data: number): string | number => {
     // Check if the data is greater than 9
     // If true, return the data as it is
     // If false, add a leading zero to the data and return it as a string
     return data > 9 ? data : "0" + data;
-}
+};
 
 /**
  * Converts a timestamp to an ISO string representation.
@@ -164,7 +162,7 @@ export const getTwodigitFormate = (data: number): string | number => {
 export const getUnixConvertedIsoString = (timestamp: number | string): string => {
     const _timeStamp = typeof timestamp === "number" ? timestamp : parseInt(timestamp); // Convert the timestamp to a number if it is a string
     return new Date(_timeStamp * 1000).toISOString(); // Create a new Date object using the adjusted timestamp and convert it to an ISO string
-}
+};
 
 /**
  * Formats a Date object into a string representation of date and time.
@@ -172,65 +170,65 @@ export const getUnixConvertedIsoString = (timestamp: number | string): string =>
  * @param {boolean} [showSeconds=true] - Optional. Determines whether to include seconds in the formatted string. Default is true.
  * @example
  * const date = new Date();
- * dateAndTimeFormate(date); returns 20-Jun-2023 12:49:25
+ * dateAndTimeFormat(date); returns 20-Jun-2023 12:49:25
  * @example 
- * dateAndTimeFormate(date,false); returns 20-Jun-2023 22:18
+ * dateAndTimeFormat(date,false); returns 20-Jun-2023 22:18
  * @returns {string | null} - The formatted string representation of date and time.
  */
-export const dateAndTimeFormate = (dateObject: Date, showSeconds = true): string | null => {
+export const dateAndTimeFormat = (dateObject: Date, showSeconds = true): string | null => {
     if (isSet(dateObject)) {
-        const date = getTwodigitFormate(dateObject.getDate()); // Get the two-digit formatted day
-        const hour = getTwodigitFormate(dateObject.getHours()); // Get the two-digit formatted hour
-        const minutes = getTwodigitFormate(dateObject.getMinutes()); // Get the two-digit formatted minute
-        const seconds = getTwodigitFormate(dateObject.getSeconds()); // Get the two-digit formatted second
-        if (showSeconds)
+        const date = getTwodigitFormat(dateObject.getDate()); // Get the two-digit formatted day
+        const hour = getTwodigitFormat(dateObject.getHours()); // Get the two-digit formatted hour
+        const minutes = getTwodigitFormat(dateObject.getMinutes()); // Get the two-digit formatted minute
+        const seconds = getTwodigitFormat(dateObject.getSeconds()); // Get the two-digit formatted second
+        if (showSeconds) {
             // Format the string with date, month, year, hour, minute, and second
             return date + "-" + MONTH[dateObject.getMonth()] + "-" + dateObject.getFullYear() + " " + hour + ":" + minutes + ":" + seconds;
-        else {
+        } else {
             // Format the string with date, month, year, hour, and minute (without seconds)
             return date + "-" + MONTH[dateObject.getMonth()] + "-" + dateObject.getFullYear() + " " + hour + ":" + minutes;
         }
     } else {
         return null; // Return null if dateObject is not set
     }
-}
+};
 
 /**
- * Formats a Date object into a string representation of date in DD-Mmm-YYYY formate.
+ * Formats a Date object into a string representation of date in DD-Mmm-YYYY format.
  * @param {Date} dateObject - The Date object to be formatted.
  * @example
  * const date = new Date();
- * dateFormate(date); returns 20-Jun-2023
- * @returns {string | null} - The formatted string representation of date in DD-Mmm-YYYY formate.
+ * dateFormat(date); returns 20-Jun-2023
+ * @returns {string | null} - The formatted string representation of date in DD-Mmm-YYYY format.
  */
-export const dateFormate = (dateObject: Date): string | null => {
+export const dateFormat = (dateObject: Date): string | null => {
     if (isSet(dateObject)) {
-        const date = getTwodigitFormate(dateObject.getDate()); // Get the two-digit formatted day
+        const date = getTwodigitFormat(dateObject.getDate()); // Get the two-digit formatted day
         return date + "-" + MONTH[dateObject.getMonth()] + "-" + dateObject.getFullYear(); // Format the string with date, month, and year
     } else {
         return null; // Return null if dateObject is not set
     }
-}
+};
 
 /**
- * Formats a Date object into a string representation of date and time in DD-Mmm-YYYY, HH:mm formate.
+ * Formats a Date object into a string representation of date and time in DD-Mmm-YYYY, HH:mm format.
  * @param {Date} dateObject - The Date object to be formatted.
  * @example
  * const data = new Date();
- * dateFormateHHMM(date); returns 20-Jun-2023, 13:05
- * @returns {string | null} - The formatted string representation of date and time in DD-Mmm-YYYY, HH:mm formate.
+ * dateFormatHHMM(date); returns 20-Jun-2023, 13:05
+ * @returns {string | null} - The formatted string representation of date and time in DD-Mmm-YYYY, HH:mm format.
  */
-export const dateFormateHHMM = (dateObject: Date): string | null => {
+export const dateFormatHHMM = (dateObject: Date): string | null => {
     if (isSet(dateObject)) {
-        const date = getTwodigitFormate(dateObject.getDate()); // Get the two-digit formatted day
-        const hour = getTwodigitFormate(dateObject.getHours()); // Get the two-digit formatted hour
-        const minutes = getTwodigitFormate(dateObject.getMinutes()); // Get the two-digit formatted minutes
+        const date = getTwodigitFormat(dateObject.getDate()); // Get the two-digit formatted day
+        const hour = getTwodigitFormat(dateObject.getHours()); // Get the two-digit formatted hour
+        const minutes = getTwodigitFormat(dateObject.getMinutes()); // Get the two-digit formatted minutes
         // Format the string with date, month, year, hour, and minutes
         return date + "-" + MONTH[dateObject.getMonth()] + "-" + dateObject.getFullYear() + ", " + hour + ":" + minutes;
     } else {
         return null; // Return null if dateObject is not set
     }
-}
+};
 
 /**
  * Formats a timestamp into a string representation of date and time.
@@ -244,8 +242,8 @@ export const dateFormateHHMM = (dateObject: Date): string | null => {
  */
 export const getDateTime = (timestamp: number, showSeconds = true) => {
     const dateObject = new Date(timestamp * 1000); // Convert the timestamp to a Date object
-    return dateAndTimeFormate(dateObject, showSeconds); // Format the Date object using dateAndTimeFormate function
-}
+    return dateAndTimeFormat(dateObject, showSeconds); // Format the Date object using dateAndTimeFormat function
+};
 
 /**
  * Checks if a string is a valid JSON data by attempting to parse it.
@@ -264,7 +262,7 @@ export const isValidJsonData = (data: string): object | boolean => {
         return false; // Return false if an error occurs during parsing
     }
     return json_data; // Return the parsed JSON data if it is valid
-}
+};
 
 /**
  * Retrieves the local date in a specific format from the provided date and time string.
@@ -276,11 +274,11 @@ export const isValidJsonData = (data: string): object | boolean => {
 export const getLocalDate = (dateAndTime: string): string | null => {
     if (isSet(dateAndTime)) {
         const dateObject = new Date(dateAndTime); // Create a Date object from the provided date and time string
-        return dateFormate(dateObject); // Format the Date object using dateFormate function
+        return dateFormat(dateObject); // Format the Date object using dateFormat function
     } else {
         return null;
     }
-}
+};
 
 /**
  * Retrieves the local date and time in a specific format from the provided date and time string.
@@ -292,11 +290,11 @@ export const getLocalDate = (dateAndTime: string): string | null => {
 export const getLocalDateHHMM = (dateAndTime: string): string | null => {
     if (isSet(dateAndTime)) {
         const dateObject = new Date(dateAndTime); // Create a Date object from the provided date and time string
-        return dateFormateHHMM(dateObject); // Format the Date object using dateFormateHHMM function
+        return dateFormatHHMM(dateObject); // Format the Date object using dateFormatHHMM function
     } else {
         return null;
     }
-}
+};
 
 /**
  * Checks if an object is set and not empty.
@@ -314,7 +312,7 @@ export const isSetObject = (obj: object): boolean => {
         // Return false if the object is not set
         return false;
     }
-}
+};
 
 /**
  * Generates a random color in hexadecimal format.
@@ -351,7 +349,7 @@ export const handleCopyToClipboard = async (text: string) => {
         }
         return { success: false, message: "Something went wrong" }; // Return generic error message
     }
-}
+};
 
 /**
  * Extracts text from an HTML string by removing HTML tags.
@@ -361,11 +359,12 @@ export const handleCopyToClipboard = async (text: string) => {
  * @returns {string} - The extracted text without HTML tags.
  */
 export const getTextFromHtml = (htmlString: string): string => {
-    if (isSet(htmlString))
+    if (isSet(htmlString)) {
         return htmlString.replace(/(<([^>]+)>)/ig, ''); // Use regular expression to remove HTML tags from the input HTML string
-    else
+    } else {
         return ""; // Return an empty string if the input HTML string is not set
-}
+    }
+};
 
 /**
  * Formats a timestamp into a string representation of date and time in the format: DD-MM-YYYY HH:mm.
@@ -380,11 +379,11 @@ export const formatTimestamp = (timestamp: number): string => {
     let currentOffset = currentTime.getTimezoneOffset();
     let ISTOffset = 330; // IST offset UTC +5:30
     let ISTTime = new Date(timestamp * 1000 + (ISTOffset + currentOffset) * 60000); // Calculate the date and time in IST (Indian Standard Time)
-    let dateIST = getTwodigitFormate(ISTTime.getDate());
-    let monthIST = getTwodigitFormate(ISTTime.getMonth() + 1);
+    let dateIST = getTwodigitFormat(ISTTime.getDate());
+    let monthIST = getTwodigitFormat(ISTTime.getMonth() + 1);
     let yearIST = ISTTime.getFullYear();
-    let hoursIST = getTwodigitFormate(ISTTime.getHours());
-    let minutesIST = getTwodigitFormate(ISTTime.getMinutes());
+    let hoursIST = getTwodigitFormat(ISTTime.getHours());
+    let minutesIST = getTwodigitFormat(ISTTime.getMinutes());
 
     // Return the formatted string representation of date and time
     return (
@@ -399,7 +398,7 @@ export const formatTimestamp = (timestamp: number): string => {
         minutesIST +
         ' '
     );
-}
+};
 
 /**
  * Formats a timestamp into a string representation of date in the format: DD/MM/YYYY.
@@ -413,14 +412,14 @@ export const getDateFormat = (timestamp: number): string => {
     let currentOffset = currentTime.getTimezoneOffset();
     let ISTOffset = 330; // IST offset UTC +5:30
     let ISTTime = new Date(timestamp * 1000 + (ISTOffset + currentOffset) * 60000); // Calculate the date and time in IST (Indian Standard Time)
-    let dateIST = getTwodigitFormate(ISTTime.getDate());
-    let monthIST = getTwodigitFormate(ISTTime.getMonth() + 1);
+    let dateIST = getTwodigitFormat(ISTTime.getDate());
+    let monthIST = getTwodigitFormat(ISTTime.getMonth() + 1);
     let yearIST = ISTTime.getFullYear();
     return dateIST + '/' + monthIST + '/' + yearIST + ' '; // Return the formatted string representation of date
-}
+};
 
 /**
- * Formats a UNIX timestamp into a string representation of date, month and year in DD Mmm, YYYY formate.
+ * Formats a UNIX timestamp into a string representation of date, month and year in DD Mmm, YYYY format.
  * @param {number} timestamp - The timestamp to be formatted.
  * @example
  * getDateMonth(1687244413); returns 20 Jun, 2023
@@ -435,7 +434,7 @@ export const getDateMonth = (timestamp: number): string => {
     let monthStr = MONTH[ISTTime.getMonth()];
     let yearIST = ISTTime.getFullYear();
     return dateIST + ' ' + monthStr + ', ' + yearIST + ' '; // Return the formatted string representation of date and month
-}
+};
 
 /**
  * Converts milliseconds to a string representation of minutes, seconds, and milliseconds.
@@ -445,10 +444,9 @@ export const getDateMonth = (timestamp: number): string => {
  * @returns {string} - The formatted string representation of minutes, seconds, and milliseconds.
  */
 export const millisToMinutesAndSeconds = (millis: number) => {
-    let minutes = Math.floor(millis / 60000);
-    let seconds = ((millis % 60000) / 1000).toFixed(0);
-    let milliseconds = Math.floor(millis % 1000).toString().padStart(3, '0');
-    //If seconds is less than 10 put a zero in front.
-    return `${minutes}:${(parseInt(seconds) < 10 ? "0" : "")}${seconds}.${milliseconds}`;
-}
+    let minutes = Math.floor(millis / 60000); // Calculate the number of minutes
+    let seconds = ((millis % 60000) / 1000).toFixed(0); // Calculate the number of seconds
+    let milliseconds = Math.floor(millis % 1000).toString().padStart(3, '0'); // Calculate the number of milliseconds
+    return `${minutes}:${(parseInt(seconds) < 10 ? "0" : "")}${seconds}.${milliseconds}`; //If seconds is less than 10 put a zero in front.
+};
 
