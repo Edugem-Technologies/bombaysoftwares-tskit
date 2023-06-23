@@ -54,11 +54,11 @@ The package also includes other useful functions:
 
 - `evalBooleanValue(value: string | boolean | undefined): boolean` : This function checks if the value provided is "true" or true.
 - `getUnixConvertedDateTime(options?: { timestamp?: number | null, dateObj?: Date | null }): string ` : Converts a timestamp or Date object to a formatted string representing the date and time.
-- `dateAndTimeFormate(dateObject: Date, showSeconds = true): string | null` : Formats a Date object into a string representation of date and time.
-- `dateFormate(dateObject: Date): string | null` : Formats a Date object into a string representation of date.
-- `dateFormateHHMM(dateObject: Date): string | null` : Formats a Date object into a string representation of date and time in DD-Mmm-YYYY, HH:mm format.
+- `dateAndTimeFormat(dateObject: Date, showSeconds = true): string | null` : Formats a Date object into a string representation of date and time.
+- `dateFormat(dateObject: Date): string | null` : Formats a Date object into a string representation of date.
+- `dateFormatHHMM(dateObject: Date): string | null` : Formats a Date object into a string representation of date and time in DD-Mmm-YYYY, HH:mm format.
 - `getUnixConvertedIsoString(timestamp: number | string): string` :  Converts a timestamp to an ISO string representation.
-- `getTwodigitFormate(data: number): string | number` : Converts a number to a two-digit format by adding a leading zero if necessary.
+- `getTwodigitFormat(data: number): string | number` : Converts a number to a two-digit format by adding a leading zero if necessary.
 - `isValidJsonData(data: string): object | boolean` : Checks if a string is valid JSON data by attempting to parse it.
 - `getLocalDate(dateAndTime: string): string | null` : Retrieves the local date in a specific format from the provided date and time string.
 - `getLocalDateTime(dateAndTime: string): string | null` : Retrieves the local date and time in a specific format from the provided date and time string.
