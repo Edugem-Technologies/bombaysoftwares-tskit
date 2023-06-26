@@ -159,15 +159,10 @@ export const getTwodigitFormat = (data: number): string | number | null=> {
  * @param {number | string} timestamp - The timestamp value to be converted.
  * @example
  * getUnixConvertedIsoString(1695193213); returns 2023-09-20T07:00:13.000Z
- * @example
- * getUnixConvertedIsoString("1695193213"); returns 2023-09-20T07:00:13.000Z
  * @returns {string} - The ISO string representation of the timestamp.
  */
-export const getUnixConvertedIsoString = (timestamp: number | string): string => {
+export const getUnixConvertedIsoString = (timestamp: number): string => {
     const _timeStamp = typeof timestamp === "number" ? timestamp : parseInt(timestamp); // Convert the timestamp to a number if it is a string
-    if (Number.isNaN(_timeStamp) || _timeStamp === null || _timeStamp === undefined) {
-        return "Invalid Date";
-    }
     return new Date(_timeStamp * 1000).toISOString(); // Create a new Date object using the adjusted timestamp and convert it to an ISO string
 };
 

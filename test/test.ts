@@ -136,17 +136,7 @@ describe('getUnixConvertedIsoString', () => {
   it('should return the ISO string representation of the provided Unix timestamp', () => {
     // Test cases with Unix timestamps that should be converted to ISO strings
     expect(getUnixConvertedIsoString(1624428600)).to.equal('2021-06-23T06:10:00.000Z');
-    expect(getUnixConvertedIsoString('1624428600')).to.equal('2021-06-23T06:10:00.000Z');
     expect(getUnixConvertedIsoString(0)).to.equal('1970-01-01T00:00:00.000Z');
-    expect(getUnixConvertedIsoString('0')).to.equal('1970-01-01T00:00:00.000Z');
-  });
-
-  it('should return "Invalid Date" for an invalid  timestamp', () => {
-    // Test cases with invalid or unset timestamps
-    expect(getUnixConvertedIsoString("null")).to.equal("Invalid Date");
-    expect(getUnixConvertedIsoString("undefined")).to.equal("Invalid Date");
-    expect(getUnixConvertedIsoString("")).to.equal("Invalid Date");
-    expect(getUnixConvertedIsoString("abc")).to.equal("Invalid Date");
   });
 });
 
