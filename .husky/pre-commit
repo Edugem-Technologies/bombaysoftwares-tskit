@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm test || {
+    echo "
+        -------Some test cases failed. Please fix the errors before proceeding with the commit.---------
+    ";
+    false;
+}

@@ -43,9 +43,9 @@ export const getCurrentDateTime = (): string => {
     const date = ("0" + date_ob.getDate()).slice(-2); // adjust 0 before single digit date
     const month = ("0" + (date_ob.getMonth() + 1));  // adjust 0 before single digit month
     const year = date_ob.getFullYear(); // current year
-    const hours = date_ob.getHours(); // current hours
-    const minutes = date_ob.getMinutes();  // current minutes 
-    const seconds = date_ob.getSeconds(); // current seconds
+    const hours = getTwodigitFormat(date_ob.getHours()); // current hours
+    const minutes = getTwodigitFormat(date_ob.getMinutes());  // current minutes 
+    const seconds = getTwodigitFormat(date_ob.getSeconds()); // current seconds
     return year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;  // prints date & time in YYYY-MM-DD HH:MM:SS format
 };
 
@@ -143,10 +143,14 @@ export const tweleveHourFormat = (hours: number): string => {
  * getTwodigitFormat(10); returns 10
  * @returns {string | number} - The formatted number as a string if less than 10, otherwise the original number.
  */
-export const getTwodigitFormat = (data: number): string | number => {
+export const getTwodigitFormat = (data: number): string | number | null=> {
     // Check if the data is greater than 9
     // If true, return the data as it is
     // If false, add a leading zero to the data and return it as a string
+    if (data > 99) {
+        // Handle the case when the data is three digits
+        return null;
+    }
     return data > 9 ? data : "0" + data;
 };
 
@@ -161,6 +165,9 @@ export const getTwodigitFormat = (data: number): string | number => {
  */
 export const getUnixConvertedIsoString = (timestamp: number | string): string => {
     const _timeStamp = typeof timestamp === "number" ? timestamp : parseInt(timestamp); // Convert the timestamp to a number if it is a string
+    if (Number.isNaN(_timeStamp) || _timeStamp === null || _timeStamp === undefined) {
+        return "Invalid Date";
+    }
     return new Date(_timeStamp * 1000).toISOString(); // Create a new Date object using the adjusted timestamp and convert it to an ISO string
 };
 
@@ -268,12 +275,15 @@ export const isValidJsonData = (data: string): object | boolean => {
  * Retrieves the local date in a specific format from the provided date and time string.
  * @param {string} dateAndTime - The date and time string.
  * @example 
- * getLocalDate("2023-06-20T13:05:00"); returns 2023-06-20T13:05:00
+ * getLocalDate("2023-06-20T13:05:00"); returns 20-Jun-2023
  * @returns {string} - The formatted local date string, or null if the dateAndTime parameter is not set.
  */
 export const getLocalDate = (dateAndTime: string): string | null => {
     if (isSet(dateAndTime)) {
         const dateObject = new Date(dateAndTime); // Create a Date object from the provided date and time string
+        if (isNaN(dateObject.getTime())) {
+            return null; // Return null if the parsed date object is invalid
+        }
         return dateFormat(dateObject); // Format the Date object using dateFormat function
     } else {
         return null;
@@ -290,6 +300,9 @@ export const getLocalDate = (dateAndTime: string): string | null => {
 export const getLocalDateHHMM = (dateAndTime: string): string | null => {
     if (isSet(dateAndTime)) {
         const dateObject = new Date(dateAndTime); // Create a Date object from the provided date and time string
+        if (isNaN(dateObject.getTime())) {
+            return null; // Return null if the parsed date object is invalid
+        }
         return dateFormatHHMM(dateObject); // Format the Date object using dateFormatHHMM function
     } else {
         return null;
