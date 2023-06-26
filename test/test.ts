@@ -45,23 +45,23 @@ describe('getCurrentDateTime', () => {
 describe('getCurrentTimestamp', () => {
   it('should return the current timestamp in seconds', () => {
     const currentTimestamp = getCurrentTimestamp();
-    const expectedTimestamp = Math.floor(Date.now() / 1000);
-    expect(currentTimestamp).to.equal(expectedTimestamp);
+    const expectedTimestamp = Math.floor(Date.now() / 1000); // Calculating the current timestamp in seconds and storing it in the variable 
+    expect(currentTimestamp).to.equal(expectedTimestamp); // Assert that the currentTimestamp matches the expectedTimestamp
   });
 
   it('should return the timestamp of the provided date in seconds', () => {
     const date = new Date('2023-06-23T12:00:00Z');
     const timestamp = getCurrentTimestamp(date);
-    const expectedTimestamp = Math.floor(date.getTime() / 1000);
-    expect(timestamp).to.equal(expectedTimestamp);
+    const expectedTimestamp = Math.floor(date.getTime() / 1000); // Calculating the current timestamp in seconds and storing it in the variable 
+    expect(timestamp).to.equal(expectedTimestamp); // Assert that the timestamp matches the expectedTimestamp
   });
 });
 
 describe('getCurrentDate', () => {
   it('should return the current date in YYYY-MM-DD format', () => {
     const currentDate = getCurrentDate();
-    const expectedDate = new Date().toISOString().slice(0, 10); // 
-    expect(currentDate).to.equal(expectedDate);
+    const expectedDate = new Date().toISOString().slice(0, 10); // Generating a string representation of the current date in the format "YYYY-MM-DD" 
+    expect(currentDate).to.equal(expectedDate); // Assert that the currentDate matches the expectedDate
   });
 });
 
@@ -157,7 +157,7 @@ describe('dateAndTimeFormat', () => {
     const expectedDateTime = '26-Jun-2021 12:30:45';
 
     const result = dateAndTimeFormat(dateObject);
-    expect(result).to.equal(expectedDateTime);
+    expect(result).to.equal(expectedDateTime); // Assert that the result matches the expectedDateTime
   });
 
   it('should return the formatted date and time without seconds', () => {
@@ -165,7 +165,7 @@ describe('dateAndTimeFormat', () => {
     const expectedDateTime = '15-Sep-2022 09:15';
 
     const result = dateAndTimeFormat(dateObject, false);
-    expect(result).to.equal(expectedDateTime);
+    expect(result).to.equal(expectedDateTime); // Assert that the result matches the expectedDateTime
   });
 });
 
@@ -175,7 +175,7 @@ describe('dateFormat', () => {
     const expectedDate = '26-Jun-2021';
 
     const result = dateFormat(dateObject);
-    expect(result).to.equal(expectedDate);
+    expect(result).to.equal(expectedDate); // Assert that the result matches the expectedDate
   });
 });
 
@@ -185,7 +185,7 @@ describe('dateFormatHHMM', () => {
     const expectedDate = '26-Jun-2021, 09:30';
 
     const result = dateFormatHHMM(dateObject);
-    expect(result).to.equal(expectedDate);
+    expect(result).to.equal(expectedDate); // Assert that the result matches the expectedDate
   });
 });
 
@@ -195,7 +195,7 @@ describe('getDateTime', () => {
     const expectedDateTime = '26-Jun-2021 10:20:00';
 
     const result = getDateTime(timestamp);
-    expect(result).to.equal(expectedDateTime);
+    expect(result).to.equal(expectedDateTime); // Assert that the result matches the expectedDateTime
   });
 
   it('should return the formatted date and time without seconds', () => {
@@ -203,7 +203,7 @@ describe('getDateTime', () => {
     const expectedDateTime = '26-Jun-2021 10:20';
 
     const result = getDateTime(timestamp, false);
-    expect(result).to.equal(expectedDateTime);
+    expect(result).to.equal(expectedDateTime); // Assert that the result matches the expectedDateTime
   });
 });
 
@@ -212,7 +212,7 @@ describe('isValidJsonData', () => {
     const validJson = '{"name": "John", "age": 30}';
     const expectedData = { name: 'John', age: 30 };
     const result = isValidJsonData(validJson);
-    expect(result).to.deep.equal(expectedData);
+    expect(result).to.deep.equal(expectedData); // Assert that the result matches the expectedDate
   });
 
   it('should return false if the input is not valid JSON', () => {
@@ -323,6 +323,7 @@ describe('getDateMonth', () => {
 });
 
 describe('millisToMinutesAndSeconds', () => {
+  // Test cases for conversion from milliseconds to minutes and seconds format.
   const testCases = [
     { millis: 0, expected: '0:00.000' },
     { millis: 1000, expected: '0:01.000' },
@@ -333,7 +334,7 @@ describe('millisToMinutesAndSeconds', () => {
   testCases.forEach(({ millis, expected }) => {
     it(`should convert ${millis} milliseconds to minutes and seconds format`, () => {
       const result = millisToMinutesAndSeconds(millis);
-      expect(result).to.equal(expected);
+      expect(result).to.equal(expected); // Asserts that the converted time matches the expected format.
     });
   });
 });
