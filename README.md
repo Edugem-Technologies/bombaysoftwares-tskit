@@ -1,6 +1,6 @@
 # tskit
 
-The @bombaysoftwares/tskit Utils package provides a set of utility functions for working with dates and timestamps in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, and JSON validation. This package is designed to enhance the functionality of various operations in your JavaScript projects.
+The @bombaysoftwares/tskit package provides a set of utility functions for working with dates and timestamps in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, and JSON validation. This package is designed to enhance the functionality of various operations in your JavaScript projects.
 
 ## Installation
 
