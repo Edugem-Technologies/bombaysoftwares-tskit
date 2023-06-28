@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTime, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, getDateFormat, getDateMonth, millisToMinutesAndSeconds, getUnixConvertedDateTime } from '../index';
+import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTime, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, getDateFormat, getDateMonth, millisToMinutesAndSeconds, getUnixConvertedDateTime } from '../src/index';
 
 describe('isSet', () => {
   it('should return true if the value is set', () => {
