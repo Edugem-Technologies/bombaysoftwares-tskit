@@ -1,8 +1,9 @@
 {
   "name": "@bombaysoftwares/tskit",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "The @bombaysoftwares/tskit package provides a set of utility functions for working with dates and timestamps in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, and JSON validation.",
-  "main": "index.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Edugem-Technologies/bombaysoftwares-tskit"
@@ -41,11 +42,17 @@
   },
   "scripts": {
     "test": "mocha --require ts-node/register test/**/*.ts",
-    "minifyTS": "tsc index.ts --outDir dist",
+    "build": "tsc",
+    "prepare": "npm run build",
+    "minifyTS": "tsc src/index.ts --outDir dist",
     "minifyJS": "uglifyjs dist/index.js --output dist/index.min.js",
     "version:add": "echo \"/*! @bombaysoftwares/tskit ! v - $(npm run version:extract --silent)\n * license : MIT\n Build time: $(date '+%m-%d-%Y %H:%M:%S')\n */\n$(cat dist/index.min.js)\" > dist/index.min.js",
     "production": "npm run version:bump --silent && npm run minifyTS --silent && npm run minifyJS --silent && npm run version:add --silent",
     "version:bump": "npm version patch --no-git-tag-version --silent",
     "version:extract": "cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'"
-  }
+  },
+  "files": [
+    "lib/**/*",
+    "dist/**/*"
+  ]
 }
