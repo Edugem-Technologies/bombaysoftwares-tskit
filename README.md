@@ -1,6 +1,6 @@
 # tskit
 
-The @bombaysoftwares/tskit package provides a comprehensive set of utility functions for various operations in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, JSON validation,manipulating strings, and working with HTML content. This package is designed to enhance the functionality of various operations in your JavaScript projects.
+The @bombaysoftwares/tskit package provides a comprehensive set of utility functions for various operations in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, JSON validation, manipulating strings, and working with HTML content. This package is designed to enhance the functionality of various operations in your JavaScript projects.
 
 ## Installation
 
@@ -30,7 +30,7 @@ console.log(currentDateTime);
 
 ## isSet
 
-This function checks if the value provided is none of this - null,undefined,empty string,"undefined",empty array as string.
+This function checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string.
 
 ```bash
 console.log(isSet("null"));
@@ -77,7 +77,7 @@ console.log(formattedDateTime);
 ## Other Functions
 
 The package also includes other useful functions:
-- `isSet = (obj: any): boolean` : This function checks if the value provided is none of this - null,undefined,empty string,"undefined",empty array as string.
+- `isSet = (obj: any): boolean` : This function checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string.
 - `isSetObject = (obj: object): boolean` : This function checks if an object is set and not empty.
 - `getRandomColor = (): string` : This function generates a random color in hexadecimal format.
 - `getTextFromHtml = (htmlString: string): string` : This function extracts text from an HTML string by removing HTML tags.

@@ -1,5 +1,5 @@
 /**
-* Checks if the value provided is none of this - null,undefined,empty string,"undefined",empty array as string
+* Checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string
 * @param {any} obj - The value to be checked.
 * @example
 * isSet("null"); returns false
@@ -100,7 +100,7 @@ export declare const getUnixConvertedIsoString: (timestamp: number) => string;
  * const date = new Date();
  * dateAndTimeFormat(date); returns 20-Jun-2023 12:49:25
  * @example
- * dateAndTimeFormat(date,false); returns 20-Jun-2023 22:18
+ * dateAndTimeFormat(date, false); returns 20-Jun-2023 22:18
  * @returns {string | null} - The formatted string representation of date and time.
  */
 export declare const dateAndTimeFormat: (dateObject: Date, showSeconds?: boolean) => string | null;
