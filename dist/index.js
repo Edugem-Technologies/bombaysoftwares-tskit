@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.millisToMinutesAndSeconds = exports.getDateMonth = exports.getDateFormat = exports.formatTimestamp = exports.getTextFromHtml = exports.handleCopyToClipboard = exports.getRandomColor = exports.isSetObject = exports.getLocalDateHHMM = exports.getLocalDate = exports.isValidJsonData = exports.getDateTime = exports.dateFormatHHMM = exports.dateFormat = exports.dateAndTimeFormat = exports.getUnixConvertedIsoString = exports.getTwodigitFormat = exports.tweleveHourFormat = exports.getUnixConvertedDateTime = exports.getCurrentDate = exports.getCurrentTimestamp = exports.getCurrentDateTime = exports.evalBooleanValue = exports.isSet = void 0;
 var constants_1 = require("./constants");
 /**
-* Checks if the value provided is none of this - null,undefined,empty string,"undefined",empty array as string
+* Checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string
 * @param {any} obj - The value to be checked.
 * @example
 * isSet("null"); returns false
@@ -217,7 +217,7 @@ exports.getUnixConvertedIsoString = getUnixConvertedIsoString;
  * const date = new Date();
  * dateAndTimeFormat(date); returns 20-Jun-2023 12:49:25
  * @example
- * dateAndTimeFormat(date,false); returns 20-Jun-2023 22:18
+ * dateAndTimeFormat(date, false); returns 20-Jun-2023 22:18
  * @returns {string | null} - The formatted string representation of date and time.
  */
 var dateAndTimeFormat = function (dateObject, showSeconds) {
