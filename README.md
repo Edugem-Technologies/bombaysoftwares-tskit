@@ -1,6 +1,6 @@
 # tskit
 
-The @bombaysoftwares/tskit package provides a set of utility functions for working with dates and timestamps in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, and JSON validation. This package is designed to enhance the functionality of various operations in your JavaScript projects.
+The @bombaysoftwares/tskit package provides a comprehensive set of utility functions for various operations in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, JSON validation,manipulating strings, and working with HTML content. This package is designed to enhance the functionality of various operations in your JavaScript projects.
 
 ## Installation
 
@@ -64,16 +64,6 @@ console.log(getTextFromHtml("<h1>Title</h1><p>This is a paragraph.</p>"); return
 // Output: The extracted text without HTML tags.
 ```
 
-## getCurrentTimestamp
-
-This function retrieves the current timestamp in seconds. If a date is provided as an argument, it returns the timestamp of that date.
-
-```bash
-const currentTimestamp = getCurrentTimestamp();
-console.log(currentTimestamp);
-// Output: 1687244441
-```
-
 ## getDateTime
 
 This function formats a timestamp into a string representation of date and time. You can choose whether to include seconds in the formatted string.
@@ -92,11 +82,9 @@ The package also includes other useful functions:
 - `getRandomColor = (): string` : This function generates a random color in hexadecimal format.
 - `getTextFromHtml = (htmlString: string): string` : This function extracts text from an HTML string by removing HTML tags.
 - `evalBooleanValue(value: string | boolean | undefined): boolean` : This function checks if the value provided is "true" or true.
-- `getUnixConvertedDateTime({ timestamp = null, dateObj = null }: { timestamp?: number | null, dateObj?: Date | null }): string ` : Converts a timestamp or Date object to a formatted string representing the date and time in YYYY-MM-DD hh:mm:ss AM/PM.
 - `dateAndTimeFormat(dateObject: Date, showSeconds = true): string | null` : Formats a Date object into a string representation of date and time.
 - `dateFormat(dateObject: Date): string | null` : Formats a Date object into a string representation of date in DD-Mmm-YYYY format.
 - `dateFormatHHMM(dateObject: Date): string | null` : Formats a Date object into a string representation of date and time in DD-Mmm-YYYY, HH:mm format.
-- `getUnixConvertedIsoString(timestamp: number): string` :  Converts a timestamp to an ISO string representation.
 - `getTwodigitFormat(data: number): string | number | null` : Converts a number to a two-digit format by adding a leading zero if necessary.
 - `isValidJsonData(data: string): object | boolean` : Checks if a string is valid JSON data by attempting to parse it.
 - `getLocalDate(dateAndTime: string): string | null` : Retrieves the local date in a specific format from the provided date and time string.
