@@ -28,6 +28,42 @@ console.log(currentDateTime);
 // Output: 2023-06-20 12:22:20
 ```
 
+## isSet
+
+This function checks if the value provided is none of this - null,undefined,empty string,"undefined",empty array as string.
+
+```bash
+console.log(isSet("null"));
+// Output: false
+```
+
+## isSetObject
+
+This function checks if an object is set and not empty.
+
+```bash
+console.log(isSetObject({ key1: "value1", key2: "value2" }));
+// Output: true
+```
+
+## getRandomColor
+
+This function generates a random color in hexadecimal format.
+
+```bash
+console.log(getRandomColor());
+// Output: #62C5B9
+```
+
+## getTextFromHtml
+
+Extracts text from an HTML string by removing HTML tags.
+
+```bash
+console.log(getTextFromHtml("<h1>Title</h1><p>This is a paragraph.</p>"); returns TitleThis is a paragraph.);
+// Output: The extracted text without HTML tags.
+```
+
 ## getCurrentTimestamp
 
 This function retrieves the current timestamp in seconds. If a date is provided as an argument, it returns the timestamp of that date.
@@ -51,7 +87,10 @@ console.log(formattedDateTime);
 ## Other Functions
 
 The package also includes other useful functions:
-
+- `isSet = (obj: any): boolean` : This function checks if the value provided is none of this - null,undefined,empty string,"undefined",empty array as string.
+- `isSetObject = (obj: object): boolean` : This function checks if an object is set and not empty.
+- `getRandomColor = (): string` : This function generates a random color in hexadecimal format.
+- `getTextFromHtml = (htmlString: string): string` : This function extracts text from an HTML string by removing HTML tags.
 - `evalBooleanValue(value: string | boolean | undefined): boolean` : This function checks if the value provided is "true" or true.
 - `getUnixConvertedDateTime({ timestamp = null, dateObj = null }: { timestamp?: number | null, dateObj?: Date | null }): string ` : Converts a timestamp or Date object to a formatted string representing the date and time in YYYY-MM-DD hh:mm:ss AM/PM.
 - `dateAndTimeFormat(dateObject: Date, showSeconds = true): string | null` : Formats a Date object into a string representation of date and time.
