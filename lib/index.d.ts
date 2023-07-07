@@ -243,4 +243,4 @@ export declare const getDayFromDate: (dateString: string) => string;
  * @param {string} format - The format string specifying the expected date format.
  * @returns {Date} - The parsed Date object, or null if the input is not a valid date.
  */
-export declare const parseDate: (dateString: string, format: string) => Date | null;
+export declare const strToDate: (dateString: string, format: string) => Date | null;

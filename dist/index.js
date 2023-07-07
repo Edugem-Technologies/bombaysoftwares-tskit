@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parseDate = exports.getDayFromDate = exports.millisToMinutesAndSeconds = exports.getDateMonth = exports.getDateFormat = exports.formatTimestamp = exports.getTextFromHtml = exports.handleCopyToClipboard = exports.getRandomColor = exports.isSetObject = exports.getLocalDateHHMM = exports.getLocalDate = exports.isValidJsonData = exports.getDateTime = exports.dateFormatHHMM = exports.dateFormat = exports.dateAndTimeFormat = exports.getUnixConvertedIsoString = exports.getTwodigitFormat = exports.tweleveHourFormat = exports.getUnixConvertedDateTime = exports.getCurrentDate = exports.getCurrentTimestamp = exports.getCurrentDateTime = exports.evalBooleanValue = exports.isSet = void 0;
+exports.strToDate = exports.getDayFromDate = exports.millisToMinutesAndSeconds = exports.getDateMonth = exports.getDateFormat = exports.formatTimestamp = exports.getTextFromHtml = exports.handleCopyToClipboard = exports.getRandomColor = exports.isSetObject = exports.getLocalDateHHMM = exports.getLocalDate = exports.isValidJsonData = exports.getDateTime = exports.dateFormatHHMM = exports.dateFormat = exports.dateAndTimeFormat = exports.getUnixConvertedIsoString = exports.getTwodigitFormat = exports.tweleveHourFormat = exports.getUnixConvertedDateTime = exports.getCurrentDate = exports.getCurrentTimestamp = exports.getCurrentDateTime = exports.evalBooleanValue = exports.isSet = void 0;
 var constants_1 = require("./constants");
 /**
 * Checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string
@@ -524,7 +524,7 @@ var getDayFromDate = function (dateString) {
     var date = null;
     for (var _i = 0, dateFormats_1 = dateFormats; _i < dateFormats_1.length; _i++) {
         var format = dateFormats_1[_i];
-        date = (0, exports.parseDate)(dateString, format);
+        date = (0, exports.strToDate)(dateString, format);
         if (date)
             break;
     }
@@ -542,7 +542,7 @@ exports.getDayFromDate = getDayFromDate;
  * @param {string} format - The format string specifying the expected date format.
  * @returns {Date} - The parsed Date object, or null if the input is not a valid date.
  */
-var parseDate = function (dateString, format) {
+var strToDate = function (dateString, format) {
     var parts = dateString.split(/[\/-]/);
     var formatParts = format.split(/[-/]/);
     var dateObj = {};
@@ -582,4 +582,4 @@ var parseDate = function (dateString, format) {
     }
     return new Date(year, month, day); // Construct a new Date object with the parsed year, month, and day
 };
-exports.parseDate = parseDate;
+exports.strToDate = strToDate;

@@ -468,7 +468,7 @@ export const getDayFromDate = (dateString: string): string => {
     let date: Date | null = null;
   
     for (let format of dateFormats) {
-      date = parseDate(dateString, format);
+      date = strToDate(dateString, format);
       if (date) break;
     }
   
@@ -487,7 +487,7 @@ export const getDayFromDate = (dateString: string): string => {
    * @param {string} format - The format string specifying the expected date format.
    * @returns {Date} - The parsed Date object, or null if the input is not a valid date.
    */
-  export const parseDate = (dateString: string, format: string): Date | null => {
+  export const strToDate = (dateString: string, format: string): Date | null => {
     const parts: string[] = dateString.split(/[\/-]/);
     const formatParts: string[] = format.split(/[-/]/);
     const dateObj: { day?: number; month?: number; year?: number } = {};
