@@ -331,9 +331,9 @@ describe('millisToMinutesAndSeconds', () => {
 
 describe('getDayFromDate', () => {
   it('should return the correct day of the week for a valid date string', () => {
-    const dateStringFormatOne = '07/07/2023'; // Valid date string format 1
+    const dateStringFormatOne = '07/Jul/2023'; // Valid date string format 1
     const dateStringFormatTwo = "07/07/2023"; // Valid date string format 2
-    const dateStringFormatThree = "07-07-2023"; // Valid date string format 3
+    const dateStringFormatThree = "07-Jul-2023"; // Valid date string format 3
     const dateStringFormatFour = "07-07-2023"; // Valid date string format 4
     const expectedDayOfWeek = 'Friday'; // Expected day of the week
 
