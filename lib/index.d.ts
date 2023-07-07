@@ -231,3 +231,16 @@ export declare const getDateMonth: (timestamp: number) => string;
  * @returns {string} - The formatted string representation of minutes, seconds, and milliseconds.
  */
 export declare const millisToMinutesAndSeconds: (millis: number) => string;
+/**
+ * Retrieves the day of the week from a given date string.
+ * @param {string} dateString - The input date string.
+ * @returns {string} - The day of the week as a string, or "Invalid date format" if the input is not a valid date.
+ */
+export declare const getDayFromDate: (dateString: string) => string;
+/**
+ * Parses the input date string based on the specified format and returns a Date object.
+ * @param {string} dateString - The input date string.
+ * @param {string} format - The format string specifying the expected date format.
+ * @returns {Date} - The parsed Date object, or null if the input is not a valid date.
+ */
+export declare const parseDate: (dateString: string, format: string) => Date | null;

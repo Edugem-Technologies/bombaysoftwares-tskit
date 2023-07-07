@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.millisToMinutesAndSeconds = exports.getDateMonth = exports.getDateFormat = exports.formatTimestamp = exports.getTextFromHtml = exports.handleCopyToClipboard = exports.getRandomColor = exports.isSetObject = exports.getLocalDateHHMM = exports.getLocalDate = exports.isValidJsonData = exports.getDateTime = exports.dateFormatHHMM = exports.dateFormat = exports.dateAndTimeFormat = exports.getUnixConvertedIsoString = exports.getTwodigitFormat = exports.tweleveHourFormat = exports.getUnixConvertedDateTime = exports.getCurrentDate = exports.getCurrentTimestamp = exports.getCurrentDateTime = exports.evalBooleanValue = exports.isSet = void 0;
+exports.parseDate = exports.getDayFromDate = exports.millisToMinutesAndSeconds = exports.getDateMonth = exports.getDateFormat = exports.formatTimestamp = exports.getTextFromHtml = exports.handleCopyToClipboard = exports.getRandomColor = exports.isSetObject = exports.getLocalDateHHMM = exports.getLocalDate = exports.isValidJsonData = exports.getDateTime = exports.dateFormatHHMM = exports.dateFormat = exports.dateAndTimeFormat = exports.getUnixConvertedIsoString = exports.getTwodigitFormat = exports.tweleveHourFormat = exports.getUnixConvertedDateTime = exports.getCurrentDate = exports.getCurrentTimestamp = exports.getCurrentDateTime = exports.evalBooleanValue = exports.isSet = void 0;
 var constants_1 = require("./constants");
 /**
 * Checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string
@@ -514,3 +514,72 @@ var millisToMinutesAndSeconds = function (millis) {
     return "".concat(minutes, ":").concat((parseInt(seconds) < 10 ? "0" : "")).concat(seconds, ".").concat(milliseconds); //If seconds is less than 10 put a zero in front.
 };
 exports.millisToMinutesAndSeconds = millisToMinutesAndSeconds;
+/**
+ * Retrieves the day of the week from a given date string.
+ * @param {string} dateString - The input date string.
+ * @returns {string} - The day of the week as a string, or "Invalid date format" if the input is not a valid date.
+ */
+var getDayFromDate = function (dateString) {
+    var dateFormats = ["DD-MMM-YYYY", "DD/MM/YYYY", "DD/MMM/YYYY"];
+    var date = null;
+    for (var _i = 0, dateFormats_1 = dateFormats; _i < dateFormats_1.length; _i++) {
+        var format = dateFormats_1[_i];
+        date = (0, exports.parseDate)(dateString, format);
+        if (date)
+            break;
+    }
+    if (!date) {
+        return "Invalid date format";
+    }
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var dayOfWeek = date.getDay();
+    return days[dayOfWeek];
+};
+exports.getDayFromDate = getDayFromDate;
+/**
+ * Parses the input date string based on the specified format and returns a Date object.
+ * @param {string} dateString - The input date string.
+ * @param {string} format - The format string specifying the expected date format.
+ * @returns {Date} - The parsed Date object, or null if the input is not a valid date.
+ */
+var parseDate = function (dateString, format) {
+    var parts = dateString.split(/[\/-]/);
+    var formatParts = format.split(/[-/]/);
+    var dateObj = {};
+    for (var i = 0; i < formatParts.length; i++) {
+        var formatPart = formatParts[i].toUpperCase();
+        var part = parts[i];
+        if (formatPart === "DD") {
+            dateObj.day = parseInt(part, 10); // Extract the day value and assign it to the date object
+        }
+        else if (formatPart === "MM") {
+            dateObj.month = parseInt(part, 10) - 1; // Extract the month value and assign it to the date object
+        }
+        else if (formatPart === "MMM") {
+            var monthMap = {
+                'JAN': 0,
+                'FEB': 1,
+                'MAR': 2,
+                'APR': 3,
+                'MAY': 4,
+                'JUN': 5,
+                'JUL': 6,
+                'AUG': 7,
+                'SEP': 8,
+                'OCT': 9,
+                'NOV': 10,
+                'DEC': 11
+            };
+            dateObj.month = monthMap[part.toUpperCase()]; // Map the three-letter month abbreviation to a numeric value and assign it to the date object
+        }
+        else if (formatPart === "YYYY") {
+            dateObj.year = parseInt(part, 10); // Extract the year value and assign it to the date object
+        }
+    }
+    var day = dateObj.day, month = dateObj.month, year = dateObj.year;
+    if (isNaN(day) || isNaN(month) || isNaN(year)) {
+        return null; // Return null if any of the date components are not valid numbers
+    }
+    return new Date(year, month, day); // Construct a new Date object with the parsed year, month, and day
+};
+exports.parseDate = parseDate;

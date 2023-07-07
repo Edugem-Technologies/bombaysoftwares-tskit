@@ -458,3 +458,74 @@ export const millisToMinutesAndSeconds = (millis: number) => {
     return `${minutes}:${(parseInt(seconds) < 10 ? "0" : "")}${seconds}.${milliseconds}`; //If seconds is less than 10 put a zero in front.
 };
 
+/**
+ * Retrieves the day of the week from a given date string.
+ * @param {string} dateString - The input date string.
+ * @returns {string} - The day of the week as a string, or "Invalid date format" if the input is not a valid date.
+ */
+export const getDayFromDate = (dateString: string): string => {
+    const dateFormats: string[] = ["DD-MMM-YYYY", "DD/MM/YYYY", "DD/MMM/YYYY"];
+    let date: Date | null = null;
+  
+    for (let format of dateFormats) {
+      date = parseDate(dateString, format);
+      if (date) break;
+    }
+  
+    if (!date) {
+      return "Invalid date format";
+    }
+  
+    const days: string[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayOfWeek: number = date.getDay();
+    return days[dayOfWeek];
+  }
+  
+  /**
+   * Parses the input date string based on the specified format and returns a Date object.
+   * @param {string} dateString - The input date string.
+   * @param {string} format - The format string specifying the expected date format.
+   * @returns {Date} - The parsed Date object, or null if the input is not a valid date.
+   */
+  export const parseDate = (dateString: string, format: string): Date | null => {
+    const parts: string[] = dateString.split(/[\/-]/);
+    const formatParts: string[] = format.split(/[-/]/);
+    const dateObj: { day?: number; month?: number; year?: number } = {};
+  
+    for (let i = 0; i < formatParts.length; i++) {
+      const formatPart: string = formatParts[i].toUpperCase();
+      const part: string = parts[i];
+  
+      if (formatPart === "DD") { 
+        dateObj.day = parseInt(part, 10); // Extract the day value and assign it to the date object
+      } else if (formatPart === "MM") {
+        dateObj.month = parseInt(part, 10) - 1; // Extract the month value and assign it to the date object
+      } else if (formatPart === "MMM") {
+        const monthMap: { [key: string]: number } = {
+          'JAN': 0,
+          'FEB': 1,
+          'MAR': 2,
+          'APR': 3,
+          'MAY': 4,
+          'JUN': 5,
+          'JUL': 6,
+          'AUG': 7,
+          'SEP': 8,
+          'OCT': 9,
+          'NOV': 10,
+          'DEC': 11
+        };
+        dateObj.month = monthMap[part.toUpperCase()]; // Map the three-letter month abbreviation to a numeric value and assign it to the date object
+      } else if (formatPart === "YYYY") {
+        dateObj.year = parseInt(part, 10); // Extract the year value and assign it to the date object
+      }
+    }
+  
+    const { day, month, year } = dateObj;
+  
+    if (isNaN(day!) || isNaN(month!) || isNaN(year!)) {
+      return null; // Return null if any of the date components are not valid numbers
+    }
+  
+    return new Date(year!, month!, day!); // Construct a new Date object with the parsed year, month, and day
+  }

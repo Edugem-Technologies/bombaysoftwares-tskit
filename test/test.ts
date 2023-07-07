@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTime, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, getDateFormat, getDateMonth, millisToMinutesAndSeconds, getUnixConvertedDateTime } from '../src/index';
+import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTime, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, getDateFormat, getDateMonth, millisToMinutesAndSeconds, getUnixConvertedDateTime, getDayFromDate} from '../src/index';
 
 describe('isSet', () => {
   it('should return true if the value is set', () => {
@@ -326,5 +326,28 @@ describe('millisToMinutesAndSeconds', () => {
       const result = millisToMinutesAndSeconds(millis);
       expect(result).to.equal(expected); // Asserts that the converted time matches the expected format.
     });
+  });
+});
+
+describe('getDayFromDate', () => {
+  it('should return the correct day of the week for a valid date string', () => {
+    const dateStringFormatOne = '07/07/2023'; // Valid date string format 1
+    const dateStringFormatTwo = "07/07/2023"; // Valid date string format 2
+    const dateStringFormatThree = "07-07-2023"; // Valid date string format 3
+    const dateStringFormatFour = "07-07-2023"; // Valid date string format 4
+    const expectedDayOfWeek = 'Friday'; // Expected day of the week
+
+    // Testing with different valid date string formats
+    expect(getDayFromDate(dateStringFormatOne)).to.equal(expectedDayOfWeek);
+    expect(getDayFromDate(dateStringFormatTwo)).to.equal(expectedDayOfWeek);
+    expect(getDayFromDate(dateStringFormatThree)).to.equal(expectedDayOfWeek);
+    expect(getDayFromDate(dateStringFormatFour)).to.equal(expectedDayOfWeek);
+  });
+
+  it('should return "Invalid date format" for an invalid date string', () => {
+    const dateString = '2023-July-07'; // Invalid format
+    const expectedErrorMessage = 'Invalid date format';
+    const actualResult = getDayFromDate(dateString);
+    expect(actualResult).equal(expectedErrorMessage);
   });
 });
