@@ -517,6 +517,11 @@ exports.millisToMinutesAndSeconds = millisToMinutesAndSeconds;
 /**
  * Retrieves the day of the week from a given date string.
  * @param {string} dateString - The input date string.
+ * @example
+ * const dateStringFormatOne = "07/Jul/2023"
+ * const dateStringFormatFour = "07-07-2023"
+ * getDayFromDate(dateStringFormatOne); return Friday
+ * getDayFromDate(dateStringFormatFour); return Friday
  * @returns {string} - The day of the week as a string, or "Invalid date format" if the input is not a valid date.
  */
 var getDayFromDate = function (dateString) {
@@ -540,6 +545,10 @@ exports.getDayFromDate = getDayFromDate;
  * Parses the input date string based on the specified format and returns a Date object.
  * @param {string} dateString - The input date string.
  * @param {string} format - The format string specifying the expected date format.
+ * @example
+ * const dateStringFormatOne = "07/Jul/2023"
+ * const format = "DD/MMM/YYYY";
+ * strToDate(dateString, format); returns 2023-07-07T00:00:00.000Z
  * @returns {Date} - The parsed Date object, or null if the input is not a valid date.
  */
 var strToDate = function (dateString, format) {
