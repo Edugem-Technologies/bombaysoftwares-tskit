@@ -1,0 +1,47 @@
+name: Package Version-Bump Workflow
+
+# Trigger the workflow when a pull request is opened in the 'main' branch
+on:
+  pull_request:
+    types: [opened]
+    branches:
+      - 'main'
+
+# Specify permissions for the workflow
+# This grants write access to the contents of the repository
+permissions:
+  contents: write
+
+jobs:
+  version-bump:
+      runs-on: ubuntu-latest
+
+      steps:
+        # Checkout the project repository
+        - name: Checkout repository
+          uses: actions/checkout@v3 
+
+        # Setup Node.js environment
+        - name: Setup Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: 16
+
+        # Run version bump script
+        - name: Run version bump    
+          run: npm run version:bump
+
+        # Extract and add version to minified file
+        - name: Run version add
+          run: npm run version:add
+
+        # Configure Git and commit changes
+        - name: Configure Git and commit changes
+          run: |
+            git config --global user.name 'Automated Publishing Bot'
+            git config --global user.email 'action@github.com'
+            git fetch origin release/12-07-2023:release/12-07-2023
+            git checkout release/12-07-2023
+            git add .
+            git commit -am "Automated Commmit with Github Actions for Version-Bump & Version-Add"
+            git push origin release/12-07-2023

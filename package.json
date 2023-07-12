@@ -1,6 +1,6 @@
 {
   "name": "@bombaysoftwares/tskit",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "The @bombaysoftwares/tskit package provides a set of utility functions for working with dates and timestamps in JavaScript. These functions simplify common tasks such as date formatting, timestamp conversion, and JSON validation.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -47,7 +47,7 @@
     "minifyTS": "tsc src/index.ts --outDir dist",
     "minifyJS": "uglifyjs dist/index.js --output dist/index.min.js",
     "version:add": "echo \"/*! @bombaysoftwares/tskit ! v - $(npm run version:extract --silent)\n * license : MIT\n Build time: $(date '+%m-%d-%Y %H:%M:%S')\n */\n$(cat dist/index.min.js)\" > dist/index.min.js",
-    "production": "npm run version:bump --silent && npm run minifyTS --silent && npm run minifyJS --silent && npm run version:add --silent",
+    "production": "npm run minifyTS --silent && npm run minifyJS --silent",
     "version:bump": "npm version patch --no-git-tag-version --silent",
     "version:extract": "cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'"
   },

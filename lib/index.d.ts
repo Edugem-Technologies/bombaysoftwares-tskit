@@ -127,12 +127,12 @@ export declare const dateFormatHHMM: (dateObject: Date) => string | null;
  * @param {number} timestamp - The timestamp to be formatted.
  * @param {boolean} [showSeconds=true] - Optional parameter to indicate whether to include seconds in the formatted string. Defaults to true.
  * @example
- * getDateTime(1675663705); returns 06-Feb-2023 11:38:25
+ * getDateTimeFromTimestamp(1675663705); returns 06-Feb-2023 11:38:25
  * @example
- * getDateTime(1675663705, false); returns 06-Feb-2023 11:38
+ * getDateTimeFromTimestamp(1675663705, false); returns 06-Feb-2023 11:38
  * @returns {string } - The formatted string representation of date and time.
  */
-export declare const getDateTime: (timestamp: number, showSeconds?: boolean) => string | null;
+export declare const getDateTimeFromTimestamp: (timestamp: number, showSeconds?: boolean) => string | null;
 /**
  * Checks if a string is a valid JSON data by attempting to parse it.
  * @param {string} data - The string to be checked.
