@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTime, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, getDateFormat, getDateMonth, millisToMinutesAndSeconds, getUnixConvertedDateTime, getDayFromDate} from '../src/index';
+import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTimeFromTimestamp, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, getDateFormat, getDateMonth, millisToMinutesAndSeconds, getUnixConvertedDateTime, getDayFromDate} from '../src/index';
 
 describe('isSet', () => {
   it('should return true if the value is set', () => {
@@ -184,7 +184,7 @@ describe('getDateTime', () => {
     const timestamp = 1624683000; // Example timestamp (June 26, 2021, 09:30:00)
     const expectedDateTime = '26-Jun-2021 10:20:00';
 
-    const result = getDateTime(timestamp);
+    const result = getDateTimeFromTimestamp(timestamp);
     expect(result).to.equal(expectedDateTime); // Assert that the result matches the expectedDateTime
   });
 
@@ -192,7 +192,7 @@ describe('getDateTime', () => {
     const timestamp = 1624683000; // Example timestamp (June 26, 2021, 09:30:00)
     const expectedDateTime = '26-Jun-2021 10:20';
 
-    const result = getDateTime(timestamp, false);
+    const result = getDateTimeFromTimestamp(timestamp, false);
     expect(result).to.equal(expectedDateTime); // Assert that the result matches the expectedDateTime
   });
 });

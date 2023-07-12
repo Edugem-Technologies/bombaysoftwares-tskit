@@ -237,12 +237,12 @@ export const dateFormatHHMM = (dateObject: Date): string | null => {
  * @param {number} timestamp - The timestamp to be formatted.
  * @param {boolean} [showSeconds=true] - Optional parameter to indicate whether to include seconds in the formatted string. Defaults to true.
  * @example
- * getDateTime(1675663705); returns 06-Feb-2023 11:38:25
+ * getDateTimeFromTimestamp(1675663705); returns 06-Feb-2023 11:38:25
  * @example
- * getDateTime(1675663705, false); returns 06-Feb-2023 11:38
+ * getDateTimeFromTimestamp(1675663705, false); returns 06-Feb-2023 11:38
  * @returns {string } - The formatted string representation of date and time.
  */
-export const getDateTime = (timestamp: number, showSeconds = true) => {
+export const getDateTimeFromTimestamp = (timestamp: number, showSeconds = true) => {
     const dateObject = new Date(timestamp * 1000); // Convert the timestamp to a Date object
     return dateAndTimeFormat(dateObject, showSeconds); // Format the Date object using dateAndTimeFormat function
 };
