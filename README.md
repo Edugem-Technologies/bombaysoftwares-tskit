@@ -15,7 +15,7 @@ npm i @bombaysoftwares/tskit
 Import the desired functions from the package:
 
 ```bash
-import { getCurrentDateTime, getCurrentTimestamp, getDateTime } from '@bombaysoftwares/tskit';
+import { getCurrentDateTime, getCurrentTimestamp, getDateTimeFromTimestamp } from '@bombaysoftwares/tskit';
 ```
 
 ## getCurrentDateTime
@@ -64,13 +64,13 @@ console.log(getTextFromHtml("<h1>Title</h1><p>This is a paragraph.</p>"); return
 // Output: The extracted text without HTML tags.
 ```
 
-## getDateTime
+## getDateTimeFromTimestamp
 
 This function formats a timestamp into a string representation of date and time. You can choose whether to include seconds in the formatted string.
 
 ```bash
 const timestamp = 1695193213;
-const formattedDateTime = getDateTime(timestamp);
+const formattedDateTime = getDateTimeFromTimestamp(timestamp);
 console.log(formattedDateTime);
 // Output: 20-Sep-2023 12:30:13
 ```
