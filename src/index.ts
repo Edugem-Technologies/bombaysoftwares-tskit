@@ -375,35 +375,33 @@ export const getTextFromHtml = (htmlString: string): string => {
 };
 
 /**
- * Formats a timestamp into a string representation of date and time in the format: DD-MM-YYYY HH:mm.
- * The timestamp is adjusted to the Indian Standard Time (IST) timezone.
+ * Formats a timestamp into a string representation of date and time according to region in the format: DD-MM-YYYY HH:mm.
+ * The timestamp is adjusted to the timezone of that region.
  * @param {number} timestamp - The timestamp to be formatted.
  * @example
- * formatTimestamp(1687244413); returns 20-6-2023 12:30
+ * formatTimestamp(1687244413); returns 20-6-2023 07:00
  * @returns {string} - The formated string representation of date and time.
  */
 export const formatTimestamp = (timestamp: number): string => {
     let currentTime = new Date();
-    let currentOffset = currentTime.getTimezoneOffset();
-    let ISTOffset = 330; // IST offset UTC +5:30
-    let ISTTime = new Date(timestamp * 1000 + (ISTOffset + currentOffset) * 60000); // Calculate the date and time in IST (Indian Standard Time)
-    let dateIST = getTwodigitFormat(ISTTime.getDate());
-    let monthIST = getTwodigitFormat(ISTTime.getMonth() + 1);
-    let yearIST = ISTTime.getFullYear();
-    let hoursIST = getTwodigitFormat(ISTTime.getHours());
-    let minutesIST = getTwodigitFormat(ISTTime.getMinutes());
+    let Time = new Date(timestamp * 1000);
+    let date = getTwodigitFormat(Time.getDate());
+    let month = getTwodigitFormat(Time.getMonth() + 1);
+    let year = Time.getFullYear();
+    let hours = getTwodigitFormat(Time.getHours());
+    let minutes = getTwodigitFormat(Time.getMinutes());
 
     // Return the formatted string representation of date and time
     return (
-        dateIST +
+        date +
         '-' +
-        monthIST +
+        month +
         '-' +
-        yearIST +
+        year +
         ' ' +
-        hoursIST +
+        hours +
         ':' +
-        minutesIST +
+        minutes +
         ' '
     );
 };
