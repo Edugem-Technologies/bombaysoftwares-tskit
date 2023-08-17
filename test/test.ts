@@ -283,7 +283,7 @@ describe('getTextFromHtml', () => {
 });
 
 describe('formatTimestamp', () => {
-  it('should return the formatted date and time according to region', () => {
+  it('should return the formatted date and time according to timezone', () => {
     // Choose a specific timestamp in UTC
     const timestamp = 1624893600; // June 28, 2021 05:30:00 UTC
     const expected = '28-06-2021 20:50 '; // Set the expected result based on the chosen timestamp.

@@ -10,6 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- `formatTimestamp()` function will return time according to timezone of the user.
+- `formatTimestamp()` Function will return formatted time as per Timezone. Previously IST was the default Timezone being used.
 
 [Unreleased]: https://github.com/Edugem-Technologies/bombaysoftwares-tskit/compare/v1.0.9...HEAD
