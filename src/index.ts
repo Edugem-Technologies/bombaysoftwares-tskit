@@ -375,8 +375,7 @@ export const getTextFromHtml = (htmlString: string): string => {
 };
 
 /**
- * Formats a timestamp into a string representation of date and time according to region in the format: DD-MM-YYYY HH:mm.
- * The timestamp is adjusted to the timezone of that region.
+ * Formats a timestamp into a string representation of date and time in the format: DD-MM-YYYY HH:mm.
  * @param {number} timestamp - The timestamp to be formatted.
  * @example
  * formatTimestamp(1687244413); returns 20-6-2023 07:00
