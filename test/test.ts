@@ -283,10 +283,10 @@ describe('getTextFromHtml', () => {
 });
 
 describe('formatTimestamp', () => {
-  it('should return the formatted date and time in IST', () => {
-    // Choose a specific timestamp in UTC
+  it('should return the formatted date and time', () => {
+    // Choose a specific timestamp
     const timestamp = 1624893600; // June 28, 2021 05:30:00 UTC
-    const expected = '28-06-2021 20:50 '; // Set the expected result based on the chosen timestamp and IST offset    
+    const expected = '28-06-2021 20:50 '; // Set the expected result based on the chosen timestamp.
     const result = formatTimestamp(timestamp); // Call the formatTimestamp function with the timestamp
     expect(result).to.equal(expected); // Assert that the result matches the expected value
   });

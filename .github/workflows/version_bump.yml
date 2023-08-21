@@ -27,6 +27,10 @@ jobs:
           with:
             node-version: 16
 
+        # Transpile the typescript files and minify javascript files
+        - name: Run minifyTs & minifyJs  
+          run: npm run production
+
         # Run version bump script
         - name: Run version bump    
           run: npm run version:bump
@@ -43,5 +47,5 @@ jobs:
             git fetch origin release/12-07-2023:release/12-07-2023
             git checkout release/12-07-2023
             git add .
-            git commit -am "Automated Commmit with Github Actions for Version-Bump & Version-Add"
+            git commit -am "Automated Commmit with Github Actions for  transpiling the typescript, minify js files, Version-Bump & Version-Add"
             git push origin release/12-07-2023
