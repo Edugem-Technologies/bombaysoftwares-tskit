@@ -375,35 +375,37 @@ export const getTextFromHtml = (htmlString: string): string => {
 };
 
 /**
- * Formats a timestamp into a string representation of date and time in the format: DD-MM-YYYY HH:mm.
- * The timestamp is adjusted to the Indian Standard Time (IST) timezone.
- * @param {number} timestamp - The timestamp to be formatted.
+ * Converts a Unix timestamp to a string representing the date and time in the format: DD-MM-YYYY HH:mm.
+ * @param {number} timestamp - The Unix timestamp to be formatted.
  * @example
- * formatTimestamp(1687244413); returns 20-6-2023 12:30
+ * formatTimestamp(1687244413); returns 20-6-2023 07:00
  * @returns {string} - The formated string representation of date and time.
  */
 export const formatTimestamp = (timestamp: number): string => {
+    // Create Date objects for the current time and the specified timestamp
     let currentTime = new Date();
-    let currentOffset = currentTime.getTimezoneOffset();
-    let ISTOffset = 330; // IST offset UTC +5:30
-    let ISTTime = new Date(timestamp * 1000 + (ISTOffset + currentOffset) * 60000); // Calculate the date and time in IST (Indian Standard Time)
-    let dateIST = getTwodigitFormat(ISTTime.getDate());
-    let monthIST = getTwodigitFormat(ISTTime.getMonth() + 1);
-    let yearIST = ISTTime.getFullYear();
-    let hoursIST = getTwodigitFormat(ISTTime.getHours());
-    let minutesIST = getTwodigitFormat(ISTTime.getMinutes());
+    let Time = new Date(timestamp * 1000);
+
+    // Extract date components
+    let date = getTwodigitFormat(Time.getDate());
+    let month = getTwodigitFormat(Time.getMonth() + 1);
+    let year = Time.getFullYear();
+
+    // Extract time components
+    let hours = getTwodigitFormat(Time.getHours());
+    let minutes = getTwodigitFormat(Time.getMinutes());
 
     // Return the formatted string representation of date and time
     return (
-        dateIST +
+        date +
         '-' +
-        monthIST +
+        month +
         '-' +
-        yearIST +
+        year +
         ' ' +
-        hoursIST +
+        hours +
         ':' +
-        minutesIST +
+        minutes +
         ' '
     );
 };
