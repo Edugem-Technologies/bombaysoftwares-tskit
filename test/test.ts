@@ -285,7 +285,7 @@ describe('getTextFromHtml', () => {
 describe('formatTimestamp', () => {
   it('should return the formatted date and time', () => {
     // Choose a specific timestamp
-    const timestamp = 1692700267; // August 22, 2023 10:31:07 UTC
+    const timestamp = 1692700267; // August 22, 2023 10:31:07
     const expected = '22-08-2023 10:31 '; // Set the expected result based on the chosen timestamp.
     const result = formatTimestamp(timestamp); // Call the formatTimestamp function with the timestamp
     expect(result).to.equal(expected); // Assert that the result matches the expected value
