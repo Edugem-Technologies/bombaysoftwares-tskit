@@ -27,9 +27,15 @@ jobs:
           with:
             node-version: 16
 
+        # Install node modules
+        - name: Install node modules
+          run: npm install
+
         # Transpile the typescript files and minify javascript files
         - name: Run minifyTs & minifyJs  
-          run: npm run production
+          run: | 
+            npm run build
+            npm run production
 
         # Run version bump script
         - name: Run version bump    
@@ -44,8 +50,8 @@ jobs:
           run: |
             git config --global user.name 'Automated Publishing Bot'
             git config --global user.email 'action@github.com'
-            git fetch origin release/12-07-2023:release/12-07-2023
-            git checkout release/12-07-2023
+            git fetch origin release:release
+            git checkout release
             git add .
             git commit -am "Automated Commmit with Github Actions for  transpiling the typescript, minify js files, Version-Bump & Version-Add"
-            git push origin release/12-07-2023
+            git push origin release
