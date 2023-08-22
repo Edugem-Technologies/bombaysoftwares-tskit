@@ -50,8 +50,8 @@ jobs:
           run: |
             git config --global user.name 'Automated Publishing Bot'
             git config --global user.email 'action@github.com'
-            git fetch origin release/12-07-2023:release/12-07-2023
-            git checkout release/12-07-2023
+            git fetch origin release:release
+            git checkout release
             git add .
             git commit -am "Automated Commmit with Github Actions for  transpiling the typescript, minify js files, Version-Bump & Version-Add"
-            git push origin release/12-07-2023
+            git push origin release
