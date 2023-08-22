@@ -437,20 +437,19 @@ exports.getTextFromHtml = getTextFromHtml;
  * Converts a Unix timestamp to a string representing the date and time in the format: DD-MM-YYYY HH:mm.
  * @param {number} timestamp - The Unix timestamp to be formatted.
  * @example
- * formatTimestamp(1687244413); returns 20-6-2023 07:00
+ * formatTimestamp(1692700267); returns 22-08-2023 10:31
  * @returns {string} - The formated string representation of date and time.
  */
 var formatTimestamp = function (timestamp) {
-    // Create Date objects for the current time and the specified timestamp
-    var currentTime = new Date();
+    // Create Date objects for the specified timestamp
     var Time = new Date(timestamp * 1000);
     // Extract date components
-    var date = (0, exports.getTwodigitFormat)(Time.getDate());
-    var month = (0, exports.getTwodigitFormat)(Time.getMonth() + 1);
+    var date = (0, exports.getTwodigitFormat)(Time.getUTCDate());
+    var month = (0, exports.getTwodigitFormat)(Time.getUTCMonth() + 1);
     var year = Time.getFullYear();
     // Extract time components
-    var hours = (0, exports.getTwodigitFormat)(Time.getHours());
-    var minutes = (0, exports.getTwodigitFormat)(Time.getMinutes());
+    var hours = (0, exports.getTwodigitFormat)(Time.getUTCHours());
+    var minutes = (0, exports.getTwodigitFormat)(Time.getUTCMinutes());
     // Return the formatted string representation of date and time
     return (date +
         '-' +
