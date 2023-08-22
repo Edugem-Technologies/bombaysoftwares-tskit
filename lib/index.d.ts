@@ -202,7 +202,7 @@ export declare const getTextFromHtml: (htmlString: string) => string;
  * Converts a Unix timestamp to a string representing the date and time in the format: DD-MM-YYYY HH:mm.
  * @param {number} timestamp - The Unix timestamp to be formatted.
  * @example
- * formatTimestamp(1687244413); returns 20-6-2023 07:00
+ * formatTimestamp(1692700267); returns 22-08-2023 10:31
  * @returns {string} - The formated string representation of date and time.
  */
 export declare const formatTimestamp: (timestamp: number) => string;
