@@ -28,13 +28,11 @@ console.log(currentDateTime);
 // Output: 2023-06-20 12:22:20
 ```
 
-## isSetObject
-
-This function checks if an object is set and not empty.
-
+## isSet
+This function checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string.
 ```bash
-console.log(isSetObject({ key1: "value1", key2: "value2" }));
-// Output: true
+console.log(isSet("null"));
+// Output: false
 ```
 
 ## getRandomColor
