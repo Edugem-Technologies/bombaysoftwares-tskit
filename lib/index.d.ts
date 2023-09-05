@@ -252,3 +252,17 @@ export declare const getDayFromDate: (dateString: string) => string;
  * @returns {Date} - The parsed Date object, or null if the input is not a valid date.
  */
 export declare const strToDate: (dateString: string, format: string) => Date | null;
+/**
+* Converts the keys of an object from snake_case to camelCase.
+* @param {{ [x: string]: string | number}} obj - The object whose keys should be camelCased.
+* @example
+* const snakeCaseData = { first_name: "John", last_name: "Doe"};
+* const camelCaseData = camelCaseKeys(snakeCaseData);
+* returns camelCaseData as { firstName: "John", lastName: "Doe"}
+* @returns {{ [x: string]: string | number}} - A new object with camelCased keys.
+*/
+export declare const camelCaseKeys: (obj: {
+    [x: string]: string | number;
+}) => {
+    [x: string]: string | number;
+};
