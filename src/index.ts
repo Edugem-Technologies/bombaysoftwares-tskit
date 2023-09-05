@@ -539,3 +539,23 @@ export const getDayFromDate = (dateString: string): string => {
   
     return new Date(year!, month!, day!); // Construct a new Date object with the parsed year, month, and day
   }
+
+ /**
+ * Converts the keys of an object from snake_case to camelCase.
+ * @param {{ [x: string]: string | number}} obj - The object whose keys should be camelCased.
+ * @example
+ * const snakeCaseData = { first_name: "John", last_name: "Doe"};
+ * const camelCaseData = camelCaseKeys(snakeCaseData);
+ * returns camelCaseData as { firstName: "John", lastName: "Doe"}
+ * @returns {{ [x: string]: string | number}} - A new object with camelCased keys.
+ */
+export const camelCaseKeys= (obj: {[x: string]: string | number}):{[x: string]: string | number} => {
+    const camelCasedObj:{ [x: string]: string | number} = {};// Create an empty object to store the result with camelCased keys.
+    for (const key in obj) {  // Iterate through each property (key-value pair) in the input object.
+      if (obj.hasOwnProperty(key)) {  // Check if the property is a direct own property of the object (not inherited).
+        const camelCasedKey = key.replace(/_([a-z])/g, (_, match) => match.toUpperCase()); // Convert the snake_case key to camelCase using regular expression.
+        camelCasedObj[camelCasedKey] = obj[key];    // Add the property to the new object with the camelCased key.
+      }
+    }
+    return camelCasedObj; // Return the new object with camelCased keys.
+}  

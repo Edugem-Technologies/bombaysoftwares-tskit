@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTimeFromTimestamp, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, getDateFormat, getDateMonth, millisToMinutesAndSeconds, getUnixConvertedDateTime, getDayFromDate} from '../src/index';
+import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTimeFromTimestamp, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, getDateFormat, getDateMonth, millisToMinutesAndSeconds, getUnixConvertedDateTime, getDayFromDate, camelCaseKeys} from '../src/index';
 
 describe('isSet', () => {
   it('should return true if the value is set', () => {
@@ -350,4 +350,31 @@ describe('getDayFromDate', () => {
     const actualResult = getDayFromDate(dateString);
     expect(actualResult).equal(expectedErrorMessage);
   });
-});
+});  
+
+describe('camelCaseKeys', () => {
+  it('should return the new object with camelCased keys', () => {
+    const inputObject = { first_name: "John", last_name: "Doe"}
+    const expected = { firstName: "John", lastName: "Doe"}; // Set the expected result based on the chosen snakeCaseData
+    const result = camelCaseKeys(inputObject); // Call the camelCaseKeys function with the inputObject
+    expect(result).to.eql(expected); // Assert that the result matches the expected value
+  });
+  it('should not modify keys for non-snake_case input', () => {
+    const inputObject = { firstName: "John", lastName: "Doe"};
+    const expected = { firstName: "John", lastName: "Doe"};
+    const result = camelCaseKeys(inputObject);
+    expect(result).to.eql(expected);
+  });
+  it('should return an empty object if input object is empty', () => {
+    const inputObject = {};
+    const expected = {};
+    const result = camelCaseKeys(inputObject);
+    expect(result).to.eql(expected);
+  });
+  it('should not modify keys that are already in camelCase format', () => {
+    const inputObject = { firstName: "John", last_name: "Doe"};
+    const expected = {firstName: "John", lastName: "Doe"};
+    const result = camelCaseKeys(inputObject);
+    expect(result).to.eql(expected);
+  });
+})

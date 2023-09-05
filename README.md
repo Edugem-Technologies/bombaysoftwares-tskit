@@ -28,15 +28,6 @@ console.log(currentDateTime);
 // Output: 2023-06-20 12:22:20
 ```
 
-## isSet
-
-This function checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string.
-
-```bash
-console.log(isSet("null"));
-// Output: false
-```
-
 ## isSetObject
 
 This function checks if an object is set and not empty.
@@ -77,10 +68,6 @@ console.log(formattedDateTime);
 ## Other Functions
 
 The package also includes other useful functions:
-- `isSet = (obj: any): boolean` : This function checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string.
-- `isSetObject = (obj: object): boolean` : This function checks if an object is set and not empty.
-- `getRandomColor = (): string` : This function generates a random color in hexadecimal format.
-- `getTextFromHtml = (htmlString: string): string` : This function extracts text from an HTML string by removing HTML tags.
 - `evalBooleanValue(value: string | boolean | undefined): boolean` : This function checks if the value provided is "true" or true.
 - `dateAndTimeFormat(dateObject: Date, showSeconds = true): string | null` : Formats a Date object into a string representation of date and time.
 - `dateFormat(dateObject: Date): string | null` : Formats a Date object into a string representation of date in DD-Mmm-YYYY format.
@@ -88,6 +75,8 @@ The package also includes other useful functions:
 - `getTwodigitFormat(data: number): string | number | null` : Converts a number to a two-digit format by adding a leading zero if necessary.
 - `isValidJsonData(data: string): object | boolean` : Checks if a string is valid JSON data by attempting to parse it.
 - `getLocalDate(dateAndTime: string): string | null` : Retrieves the local date in a specific format from the provided date and time string.
+- `strToDate = (dateString: string, format: string): Date | null` : Parses the input date string based on the specified format and returns a Date object.
+- `camelCaseKeys= (obj: {[x: string]: string | number}):{[x: string]: string | number}` : Converts the keys of an object from snake_case to camelCase.
 
 
 For detailed usage and examples, refer to the inline documentation and code samples within each function.
