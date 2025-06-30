@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { isSet, evalBooleanValue, tweleveHourFormat, getTwodigitFormat, getUnixConvertedIsoString, isSetObject, getTextFromHtml, getCurrentTimestamp, getCurrentDate, isValidJsonData, getCurrentDateTime, dateAndTimeFormat, dateFormat, dateFormatHHMM, getDateTimeFromTimestamp, getLocalDate, getLocalDateHHMM, getRandomColor, formatTimestamp, formatTimestampToDateString, formatTimestampToDateMonthYearString, millisToMinutesAndSeconds, getUnixConvertedDateTime, getDayFromDate, camelCaseKeys, isSetNumber} from '../src/index';
+import { camelCaseKeys, dateAndTimeFormat, dateFormat, dateFormatHHMM, evalBooleanValue, formatTextToCapitalized, formatTimestamp, formatTimestampToDateMonthYearString, formatTimestampToDateString, getArray, getCurrentDate, getCurrentDateTime, getCurrentTimestamp, getDateTimeFromTimestamp, getDayFromDate, getLocalDate, getLocalDateHHMM, getRandomColor, getTextFromHtml, getTwodigitFormat, getUniqueValueFromArray, getUnixConvertedDateTime, getUnixConvertedIsoString, isSet, isSetNumber, isSetObject, isValidJsonData, millisToMinutesAndSeconds, tweleveHourFormat, underscoreToCapitalizedText } from '../src/index';
 
 describe('isSet', () => {
   it('should return true if the value is set', () => {
@@ -387,5 +387,267 @@ describe('isSetNumber', () => {
   it('should return false if the value is undefined or null', () => {
     expect(isSetNumber(null)).to.be.false;
     expect(isSetNumber(undefined)).to.be.false;
+  });
+});
+
+describe('getArray', () => {
+  it('should return an array of numbers from 1 to the specified length', () => {
+    const result1 = getArray(5);
+    const expected1 = [1, 2, 3, 4, 5];
+    expect(result1).to.deep.equal(expected1);
+
+    const result2 = getArray(10);
+    const expected2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    expect(result2).to.deep.equal(expected2);
+  });
+
+  it('should return an array with single element when length is 1', () => {
+    const result = getArray(1);
+    const expected = [1];
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should return an empty array when length is 0', () => {
+    const result = getArray(0);
+    const expected: number[] = [];
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should return an array with correct length', () => {
+    const length = 7;
+    const result = getArray(length);
+    expect(result).to.have.length(length);
+  });
+
+  it('should return an array with consecutive numbers starting from 1', () => {
+    const result = getArray(6);
+    expect(result[0]).to.equal(1);
+    expect(result[1]).to.equal(2);
+    expect(result[2]).to.equal(3);
+    expect(result[3]).to.equal(4);
+    expect(result[4]).to.equal(5);
+    expect(result[5]).to.equal(6);
+  });
+});
+
+describe('getUniqueValueFromArray', () => {
+  it('should return unique string values preserving order', () => {
+    const input = ["a", "b", "a", "c", "b"];
+    const expected = ["a", "b", "c"];
+    const result = getUniqueValueFromArray(input);
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should return unique number values preserving order', () => {
+    const input = [1, 2, 2, 3, 1, 4];
+    const expected = [1, 2, 3, 4];
+    const result = getUniqueValueFromArray(input);
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should return unique boolean values preserving order', () => {
+    const input = [true, false, true, true, false];
+    const expected = [true, false];
+    const result = getUniqueValueFromArray(input);
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should return unique object values preserving order', () => {
+    const obj1 = { id: 1, name: "John" };
+    const obj2 = { id: 2, name: "Jane" };
+    const obj3 = { id: 1, name: "John" }; // Different object instance with same properties
+    const input = [obj1, obj2, obj3, obj2];
+    const expected = [obj1, obj2, obj3]; // Set treats obj1 and obj3 as different objects
+    const result = getUniqueValueFromArray(input);
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should return empty array for empty input', () => {
+    const input: string[] = [];
+    const expected: string[] = [];
+    const result = getUniqueValueFromArray(input);
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should return single element array for array with one element', () => {
+    const input = ["single"];
+    const expected = ["single"];
+    const result = getUniqueValueFromArray(input);
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should return same array for array with all unique values', () => {
+    const input = ["a", "b", "c"];
+    const expected = ["a", "b", "c"];
+    const result = getUniqueValueFromArray(input);
+    expect(result).to.deep.equal(expected);
+  });
+
+  it('should throw TypeError for non-array input', () => {
+    expect(() => getUniqueValueFromArray("not an array" as any)).to.throw(TypeError, "Input must be an array");
+    expect(() => getUniqueValueFromArray(123 as any)).to.throw(TypeError, "Input must be an array");
+    expect(() => getUniqueValueFromArray(null as any)).to.throw(TypeError, "Input must be an array");
+    expect(() => getUniqueValueFromArray(undefined as any)).to.throw(TypeError, "Input must be an array");
+  });
+
+  it('should throw TypeError for array with mixed data types', () => {
+    const mixedArray = ["string", 123, true];
+    expect(() => getUniqueValueFromArray(mixedArray)).to.throw(TypeError, "Array contains mixed data types. Only one data type is allowed.");
+  });
+
+  it('should throw TypeError for array with mixed data types starting with number', () => {
+    const mixedArray = [1, "string", 2];
+    expect(() => getUniqueValueFromArray(mixedArray)).to.throw(TypeError, "Array contains mixed data types. Only one data type is allowed.");
+  });
+
+  it('should throw TypeError for array with mixed data types starting with boolean', () => {
+    const mixedArray = [true, "string", false];
+    expect(() => getUniqueValueFromArray(mixedArray)).to.throw(TypeError, "Array contains mixed data types. Only one data type is allowed.");
+  });
+});
+
+describe('formatTextToCapitalized', () => {
+  it('should capitalize first letter and convert rest to lowercase', () => {
+    const result1 = formatTextToCapitalized("hello world");
+    expect(result1).to.equal("Hello world");
+
+    const result2 = formatTextToCapitalized("JAVASCRIPT");
+    expect(result2).to.equal("Javascript");
+
+    const result3 = formatTextToCapitalized("mIXeD cAsE");
+    expect(result3).to.equal("Mixed case");
+  });
+
+  it('should handle single character strings', () => {
+    const result1 = formatTextToCapitalized("a");
+    expect(result1).to.equal("A");
+
+    const result2 = formatTextToCapitalized("Z");
+    expect(result2).to.equal("Z");
+  });
+
+  it('should return empty string for empty or falsy inputs', () => {
+    expect(formatTextToCapitalized("")).to.equal("");
+    expect(formatTextToCapitalized(undefined)).to.equal("");
+    expect(formatTextToCapitalized(null as any)).to.equal("");
+  });
+
+  it('should return empty string for non-string inputs', () => {
+    expect(formatTextToCapitalized(123 as any)).to.equal("");
+    expect(formatTextToCapitalized(true as any)).to.equal("");
+    expect(formatTextToCapitalized({} as any)).to.equal("");
+    expect(formatTextToCapitalized([] as any)).to.equal("");
+  });
+
+  it('should handle strings with special characters and numbers', () => {
+    const result1 = formatTextToCapitalized("hello123");
+    expect(result1).to.equal("Hello123");
+
+    const result2 = formatTextToCapitalized("WORLD!");
+    expect(result2).to.equal("World!");
+
+    const result3 = formatTextToCapitalized("test@email.com");
+    expect(result3).to.equal("Test@email.com");
+  });
+
+  it('should handle already capitalized strings', () => {
+    const result1 = formatTextToCapitalized("Hello World");
+    expect(result1).to.equal("Hello world");
+
+    const result2 = formatTextToCapitalized("JavaScript");
+    expect(result2).to.equal("Javascript");
+  });
+
+  it('should handle strings with only lowercase letters', () => {
+    const result = formatTextToCapitalized("lowercase");
+    expect(result).to.equal("Lowercase");
+  });
+
+  it('should handle strings with only uppercase letters', () => {
+    const result = formatTextToCapitalized("UPPERCASE");
+    expect(result).to.equal("Uppercase");
+  });
+});
+
+describe('underscoreToCapitalizedText', () => {
+  it('should convert underscore-separated strings to capitalized words', () => {
+    const result1 = underscoreToCapitalizedText("hello_world_example");
+    expect(result1).to.equal("Hello World Example");
+
+    const result2 = underscoreToCapitalizedText("user_name_email");
+    expect(result2).to.equal("User Name Email");
+
+    const result3 = underscoreToCapitalizedText("first_name_last_name");
+    expect(result3).to.equal("First Name Last Name");
+  });
+
+  it('should handle single word strings', () => {
+    const result1 = underscoreToCapitalizedText("hello");
+    expect(result1).to.equal("Hello");
+
+    const result2 = underscoreToCapitalizedText("WORLD");
+    expect(result2).to.equal("World");
+  });
+
+  it('should handle strings with mixed case', () => {
+    const result1 = underscoreToCapitalizedText("hello_WORLD_example");
+    expect(result1).to.equal("Hello World Example");
+
+    const result2 = underscoreToCapitalizedText("USER_name_EMAIL");
+    expect(result2).to.equal("User Name Email");
+  });
+
+  it('should handle strings with numbers and special characters', () => {
+    const result1 = underscoreToCapitalizedText("user_123_email");
+    expect(result1).to.equal("User 123 Email");
+
+    const result2 = underscoreToCapitalizedText("test_email@domain");
+    expect(result2).to.equal("Test Email@domain");
+  });
+
+  it('should return empty string for empty or falsy inputs', () => {
+    expect(underscoreToCapitalizedText("")).to.equal("");
+    expect(underscoreToCapitalizedText("   ")).to.equal("");
+    expect(underscoreToCapitalizedText(undefined as any)).to.equal("");
+    expect(underscoreToCapitalizedText(null as any)).to.equal("");
+  });
+
+  it('should return empty string for non-string inputs', () => {
+    expect(underscoreToCapitalizedText(123 as any)).to.equal("");
+    expect(underscoreToCapitalizedText(true as any)).to.equal("");
+    expect(underscoreToCapitalizedText({} as any)).to.equal("");
+    expect(underscoreToCapitalizedText([] as any)).to.equal("");
+  });
+
+  it('should handle strings with consecutive underscores', () => {
+    const result1 = underscoreToCapitalizedText("hello__world");
+    expect(result1).to.equal("Hello  World");
+
+    const result2 = underscoreToCapitalizedText("user___name");
+    expect(result2).to.equal("User   Name");
+  });
+
+  it('should handle strings with leading and trailing underscores', () => {
+    const result1 = underscoreToCapitalizedText("_hello_world_");
+    expect(result1).to.equal(" Hello World ");
+
+    const result2 = underscoreToCapitalizedText("__user_name__");
+    expect(result2).to.equal("  User Name  ");
+  });
+
+  it('should handle strings with only underscores', () => {
+    const result1 = underscoreToCapitalizedText("___");
+    expect(result1).to.equal("   ");
+
+    const result2 = underscoreToCapitalizedText("_");
+    expect(result2).to.equal(" ");
+  });
+
+  it('should handle already capitalized strings', () => {
+    const result1 = underscoreToCapitalizedText("Hello_World_Example");
+    expect(result1).to.equal("Hello World Example");
+
+    const result2 = underscoreToCapitalizedText("USER_NAME_EMAIL");
+    expect(result2).to.equal("User Name Email");
   });
 });

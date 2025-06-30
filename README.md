@@ -35,6 +35,54 @@ console.log(isSet("null"));
 // Output: false
 ```
 
+## isSetNumber
+This function checks if the value provided is not null or undefined.
+```bash
+console.log(isSetNumber(1));
+// Output: true
+console.log(isSetNumber(null));
+// Output: false
+```
+
+## getArray
+This function generates an array of numbers from 1 to the specified length.
+```bash
+console.log(getArray(5));
+// Output: [1, 2, 3, 4, 5]
+console.log(getArray(10));
+// Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+```
+
+## getUniqueValueFromArray
+This function returns a new array containing only unique values from the input array, preserving the order of first occurrences. Only supports arrays containing a single data type.
+```bash
+const values = ["a", "b", "a", "c", "b"];
+console.log(getUniqueValueFromArray(values));
+// Output: ["a", "b", "c"]
+
+const nums = [1, 2, 2, 3];
+console.log(getUniqueValueFromArray(nums));
+// Output: [1, 2, 3]
+```
+
+## formatTextToCapitalized
+This function capitalizes the first letter of a given text and converts the rest to lowercase. Returns an empty string if input is undefined, null, or not a string.
+```bash
+console.log(formatTextToCapitalized("hello world"));
+// Output: "Hello world"
+console.log(formatTextToCapitalized("JAVASCRIPT"));
+// Output: "Javascript"
+```
+
+## underscoreToCapitalizedText
+This function converts an underscore-separated string to a space-separated, capitalized text. Handles non-string, empty, or falsy inputs gracefully.
+```bash
+console.log(underscoreToCapitalizedText("hello_world_example"));
+// Output: "Hello World Example"
+console.log(underscoreToCapitalizedText("user_name_email"));
+// Output: "User Name Email"
+```
+
 ## getRandomColor
 
 This function generates a random color in hexadecimal format.
