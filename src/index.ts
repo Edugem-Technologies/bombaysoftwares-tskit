@@ -674,3 +674,83 @@ export const isSetNumber = (value?: number | null): boolean => {
     }
     return false
 }
+
+/**
+ * Generates an array of numbers from 1 to the specified length.
+ * @param {number} length - The length of the array to generate.
+ * @example
+ * getArray(5); returns [1, 2, 3, 4, 5]
+ * @example
+ * getArray(10); returns [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+ * @returns {number[]} - An array containing numbers from 1 up to the specified length.
+ */
+export const getArray = (length: number) => {
+    return Array.from({ length }, (_, i) => i + 1)
+}
+
+/**
+ * Returns a new array containing only unique values from the input array, preserving the order of first occurrences.
+ * Only supports arrays containing a single data type (e.g., all strings, all numbers, all booleans, etc.).
+ * Throws an error if the array contains mixed data types.
+ * 
+ * @template T
+ * @param {T[]} array - The input array containing values of a single type.
+ * @example
+ * const values = ["a", "b", "a", "c", "b"];
+ * getUniqueValueFromArray(values); // returns ["a", "b", "c"]
+ * @example
+ * const nums = [1, 2, 2, 3];
+ * getUniqueValueFromArray(nums); // returns [1, 2, 3]
+ * @returns {T[]} - A new array with duplicate values removed, preserving the order of first occurrences.
+ * @throws {TypeError} If the input is not an array or contains mixed data types.
+ */
+export function getUniqueValueFromArray<T>(array: T[]): T[] {
+    if (!Array.isArray(array)) {
+        throw new TypeError("Input must be an array");
+    }
+    if (array.length === 0) {
+        return [];
+    }
+    const firstType = typeof array[0];
+    for (let i = 1; i < array.length; i++) {
+        if (typeof array[i] !== firstType) {
+            throw new TypeError("Array contains mixed data types. Only one data type is allowed.");
+        }
+    }
+    return Array.from(new Set(array));
+}
+
+/**
+ * Capitalizes the first letter of a given text and converts the rest to lowercase.
+ * Returns an empty string if input is undefined, null, or not a string.
+ * @param {string | undefined} text - The text to be formatted.
+ * @example
+ * formatTextToCapitalized("hello world"); returns "Hello world"
+ * @example
+ * formatTextToCapitalized("JAVASCRIPT"); returns "Javascript"
+ * @returns {string} - The formatted text with the first letter capitalized and rest in lowercase.
+ */
+export const formatTextToCapitalized = (text: string | undefined): string => {
+    if (typeof text !== "string" || !text.length) return "";
+    if (text.length === 1) return text.toUpperCase();
+    // Avoids unnecessary string operations for already-capitalized single-letter strings
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+};
+
+/**
+ * Converts an underscore-separated string to a space-separated, capitalized text.
+ * Handles non-string, empty, or falsy inputs gracefully.
+ * @param {string} text - The input string with underscores to be replaced and words to be capitalized.
+ * @example
+ * underscoreToCapitalizedText("hello_world_example"); returns "Hello World Example"
+ * @example
+ * underscoreToCapitalizedText("user_name_email"); returns "User Name Email"
+ * @returns {string} - The formatted text with spaces and each word capitalized.
+ */
+export const underscoreToCapitalizedText = (text: string): string => {
+    if (typeof text !== "string" || !text.trim()) return "";
+    return text
+        .split("_")
+        .map(formatTextToCapitalized)
+        .join(" ");
+};
