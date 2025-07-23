@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -36,7 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isSetNumber = exports.strToDate = exports.millisToMinutesAndSeconds = exports.formatDuration = exports.formatTimestampToDateMonthYearString = exports.formatTimestampToDateString = exports.formatTimestamp = exports.dateFormatHHMM = exports.dateFormat = exports.dateAndTimeFormat = exports.getDayFromDate = exports.getUnixConvertedIsoString = exports.getUnixConvertedDateTime = exports.getLocalDateHHMM = exports.getLocalDate = exports.getDateTimeFromTimestamp = exports.getCurrentDate = exports.getCurrentTimestamp = exports.getCurrentDateTime = exports.tweleveHourFormat = exports.camelCaseKeys = exports.getTextFromHtml = exports.handleCopyToClipboard = exports.getRandomColor = exports.isValidJsonData = exports.getTwodigitFormat = exports.evalBooleanValue = exports.isSetObject = exports.isSet = void 0;
+exports.underscoreToCapitalizedText = exports.formatTextToCapitalized = exports.getArray = exports.isSetNumber = exports.strToDate = exports.millisToMinutesAndSeconds = exports.formatDuration = exports.formatTimestampToDateMonthYearString = exports.formatTimestampToDateString = exports.formatTimestamp = exports.dateFormatHHMM = exports.dateFormat = exports.dateAndTimeFormat = exports.getDayFromDate = exports.getUnixConvertedIsoString = exports.getUnixConvertedDateTime = exports.getLocalDateHHMM = exports.getLocalDate = exports.getDateTimeFromTimestamp = exports.getCurrentDate = exports.getCurrentTimestamp = exports.getCurrentDateTime = exports.tweleveHourFormat = exports.camelCaseKeys = exports.getTextFromHtml = exports.handleCopyToClipboard = exports.getRandomColor = exports.isValidJsonData = exports.getTwodigitFormat = exports.evalBooleanValue = exports.isSetObject = exports.isSet = void 0;
+exports.getUniqueValueFromArray = getUniqueValueFromArray;
 var constants_1 = require("./constants");
 /**
  * Checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string
@@ -708,3 +709,85 @@ var isSetNumber = function (value) {
     return false;
 };
 exports.isSetNumber = isSetNumber;
+/**
+ * Generates an array of numbers from 1 to the specified length.
+ * @param {number} length - The length of the array to generate.
+ * @example
+ * getArray(5); returns [1, 2, 3, 4, 5]
+ * @example
+ * getArray(10); returns [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+ * @returns {number[]} - An array containing numbers from 1 up to the specified length.
+ */
+var getArray = function (length) {
+    return Array.from({ length: length }, function (_, i) { return i + 1; });
+};
+exports.getArray = getArray;
+/**
+ * Returns a new array containing only unique values from the input array, preserving the order of first occurrences.
+ * Only supports arrays containing a single data type (e.g., all strings, all numbers, all booleans, etc.).
+ * Throws an error if the array contains mixed data types.
+ *
+ * @template T
+ * @param {T[]} array - The input array containing values of a single type.
+ * @example
+ * const values = ["a", "b", "a", "c", "b"];
+ * getUniqueValueFromArray(values); // returns ["a", "b", "c"]
+ * @example
+ * const nums = [1, 2, 2, 3];
+ * getUniqueValueFromArray(nums); // returns [1, 2, 3]
+ * @returns {T[]} - A new array with duplicate values removed, preserving the order of first occurrences.
+ * @throws {TypeError} If the input is not an array or contains mixed data types.
+ */
+function getUniqueValueFromArray(array) {
+    if (!Array.isArray(array)) {
+        throw new TypeError("Input must be an array");
+    }
+    if (array.length === 0) {
+        return [];
+    }
+    var firstType = typeof array[0];
+    for (var i = 1; i < array.length; i++) {
+        if (typeof array[i] !== firstType) {
+            throw new TypeError("Array contains mixed data types. Only one data type is allowed.");
+        }
+    }
+    return Array.from(new Set(array));
+}
+/**
+ * Capitalizes the first letter of a given text and converts the rest to lowercase.
+ * Returns an empty string if input is undefined, null, or not a string.
+ * @param {string | undefined} text - The text to be formatted.
+ * @example
+ * formatTextToCapitalized("hello world"); returns "Hello world"
+ * @example
+ * formatTextToCapitalized("JAVASCRIPT"); returns "Javascript"
+ * @returns {string} - The formatted text with the first letter capitalized and rest in lowercase.
+ */
+var formatTextToCapitalized = function (text) {
+    if (typeof text !== "string" || !text.length)
+        return "";
+    if (text.length === 1)
+        return text.toUpperCase();
+    // Avoids unnecessary string operations for already-capitalized single-letter strings
+    return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+};
+exports.formatTextToCapitalized = formatTextToCapitalized;
+/**
+ * Converts an underscore-separated string to a space-separated, capitalized text.
+ * Handles non-string, empty, or falsy inputs gracefully.
+ * @param {string} text - The input string with underscores to be replaced and words to be capitalized.
+ * @example
+ * underscoreToCapitalizedText("hello_world_example"); returns "Hello World Example"
+ * @example
+ * underscoreToCapitalizedText("user_name_email"); returns "User Name Email"
+ * @returns {string} - The formatted text with spaces and each word capitalized.
+ */
+var underscoreToCapitalizedText = function (text) {
+    if (typeof text !== "string" || !text.trim())
+        return "";
+    return text
+        .split("_")
+        .map(exports.formatTextToCapitalized)
+        .join(" ");
+};
+exports.underscoreToCapitalizedText = underscoreToCapitalizedText;

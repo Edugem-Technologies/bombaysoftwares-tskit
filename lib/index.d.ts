@@ -305,7 +305,7 @@ export declare const getArray: (length: number) => number[];
  * Returns a new array containing only unique values from the input array, preserving the order of first occurrences.
  * Only supports arrays containing a single data type (e.g., all strings, all numbers, all booleans, etc.).
  * Throws an error if the array contains mixed data types.
- * 
+ *
  * @template T
  * @param {T[]} array - The input array containing values of a single type.
  * @example
