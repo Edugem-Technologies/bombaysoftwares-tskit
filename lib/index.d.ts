@@ -291,3 +291,52 @@ export declare const strToDate: (dateString: string, format: string) => Date | n
  * @return {Boolean} - true if the value is not undefined or null, false otherwise.
  */
 export declare const isSetNumber: (value?: number | null) => boolean;
+/**
+ * Generates an array of numbers from 1 to the specified length.
+ * @param {number} length - The length of the array to generate.
+ * @example
+ * getArray(5); returns [1, 2, 3, 4, 5]
+ * @example
+ * getArray(10); returns [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+ * @returns {number[]} - An array containing numbers from 1 up to the specified length.
+ */
+export declare const getArray: (length: number) => number[];
+/**
+ * Returns a new array containing only unique values from the input array, preserving the order of first occurrences.
+ * Only supports arrays containing a single data type (e.g., all strings, all numbers, all booleans, etc.).
+ * Throws an error if the array contains mixed data types.
+ *
+ * @template T
+ * @param {T[]} array - The input array containing values of a single type.
+ * @example
+ * const values = ["a", "b", "a", "c", "b"];
+ * getUniqueValueFromArray(values); // returns ["a", "b", "c"]
+ * @example
+ * const nums = [1, 2, 2, 3];
+ * getUniqueValueFromArray(nums); // returns [1, 2, 3]
+ * @returns {T[]} - A new array with duplicate values removed, preserving the order of first occurrences.
+ * @throws {TypeError} If the input is not an array or contains mixed data types.
+ */
+export declare function getUniqueValueFromArray<T>(array: T[]): T[];
+/**
+ * Capitalizes the first letter of a given text and converts the rest to lowercase.
+ * Returns an empty string if input is undefined, null, or not a string.
+ * @param {string | undefined} text - The text to be formatted.
+ * @example
+ * formatTextToCapitalized("hello world"); returns "Hello world"
+ * @example
+ * formatTextToCapitalized("JAVASCRIPT"); returns "Javascript"
+ * @returns {string} - The formatted text with the first letter capitalized and rest in lowercase.
+ */
+export declare const formatTextToCapitalized: (text: string | undefined) => string;
+/**
+ * Converts an underscore-separated string to a space-separated, capitalized text.
+ * Handles non-string, empty, or falsy inputs gracefully.
+ * @param {string} text - The input string with underscores to be replaced and words to be capitalized.
+ * @example
+ * underscoreToCapitalizedText("hello_world_example"); returns "Hello World Example"
+ * @example
+ * underscoreToCapitalizedText("user_name_email"); returns "User Name Email"
+ * @returns {string} - The formatted text with spaces and each word capitalized.
+ */
+export declare const underscoreToCapitalizedText: (text: string) => string;
