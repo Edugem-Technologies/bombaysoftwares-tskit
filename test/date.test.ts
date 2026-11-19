@@ -125,6 +125,16 @@ describe("date helpers", () => {
             expect(formatDate(summer, "HH:mm Z", { timeZone: "America/New_York" })).to.equal("08:00 -04:00")
         })
 
+        it("computes the offset correctly for years 0-99 (Date.UTC would remap them to 19xx)", () => {
+            expect(formatDate("0099-01-01T00:00:00Z", "YYYY-MM-DD HH:mm Z", { timeZone: "UTC" })).to.equal(
+                "0099-01-01 00:00 +00:00"
+            )
+            // Etc/GMT-5 is a fixed UTC+05:00 zone (the sign is inverted by POSIX convention).
+            expect(formatDate("0099-01-01T00:00:00Z", "YYYY-MM-DD HH:mm Z", { timeZone: "Etc/GMT-5" })).to.equal(
+                "0099-01-01 05:00 +05:00"
+            )
+        })
+
         it("returns null for invalid dates and throws for an unknown time zone", () => {
             expect(formatDate("garbage", "YYYY")).to.be.null
             expect(() => formatDate(date, "YYYY", { timeZone: "Mars/Olympus_Mons" })).to.throw(RangeError)
@@ -219,6 +229,12 @@ describe("date helpers", () => {
         it("returns NaN for invalid dates", () => {
             expect(dateDiff("nope", new Date())).to.be.NaN
         })
+
+        it("counts days correctly for years 0-99", () => {
+            expect(dateDiff("0100-01-01", "0099-12-31", "days")).to.equal(1)
+            expect(dateDiff("0099-03-01", "0099-02-01", "days")).to.equal(28)
+            expect(dateDiff("0000-03-01", "0000-02-01", "days")).to.equal(29) // year 0 is a leap year
+        })
     })
 
     describe("startOf / endOf", () => {
@@ -302,6 +318,11 @@ describe("date helpers", () => {
             expect(getDaysInMonth(local(2024, 4, 30))).to.equal(30)
             expect(getDaysInMonth(local(2024, 12, 1))).to.equal(31)
             expect(getDaysInMonth("bad")).to.be.NaN
+        })
+
+        it("handles years 0-99 without remapping them to 19xx", () => {
+            expect(getDaysInMonth("0000-02-10")).to.equal(29) // year 0 is leap; 1900 is not
+            expect(getDaysInMonth("0099-02-10")).to.equal(28)
         })
 
         it("detects leap years from a year or a date", () => {

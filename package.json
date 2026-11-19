@@ -52,7 +52,9 @@
     "production": "npm run minifyTS --silent && npm run minifyJS --silent",
     "version:bump": "npm version patch --no-git-tag-version --silent",
     "version:extract": "cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'",
-    "typecheck": "tsc --noEmit -p . && tsc src/index.ts --noEmit"
+    "typecheck": "npm run typecheck:lib --silent && npm run typecheck:dist --silent",
+    "typecheck:lib": "tsc --noEmit -p .",
+    "typecheck:dist": "tsc src/index.ts --noEmit"
   },
   "files": [
     "lib/**/*",

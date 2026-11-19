@@ -21,6 +21,17 @@ const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 const isLeap = (year: number): boolean => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 
+/**
+ * Year-safe `Date.UTC`: `Date.UTC` and `new Date(y, m, d)` remap years 0-99 to 1900-1999,
+ * whereas `setUTCFullYear` takes the year literally.
+ */
+const utcTime = (year: number, month: number, day: number, hour = 0, minute = 0, second = 0, ms = 0): number => {
+    const date = new Date(0)
+    date.setUTCFullYear(year, month, day)
+    date.setUTCHours(hour, minute, second, ms)
+    return date.getTime()
+}
+
 /** Whether the year / month (1-12) / day exists on the calendar, e.g. rejects 2023-02-29 and 2024-04-31. */
 const isRealCalendarDate = (year: number, month: number, day: number): boolean => {
     if (month < 1 || month > 12 || day < 1) return false
@@ -146,7 +157,7 @@ const getDateParts = (date: Date, timeZone?: string): DateParts => {
         millisecond: date.getUTCMilliseconds(),
         offsetMinutes: 0,
     }
-    const asUtc = Date.UTC(
+    const asUtc = utcTime(
         parts.year,
         parts.month,
         parts.day,
@@ -265,7 +276,9 @@ export const formatDate = (input: DateInput, pattern: string, options: FormatDat
  */
 export const getDaysInMonth = (input: DateInput): number => {
     const date = toDate(input)
-    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+    if (!isValidDate(date)) return NaN
+    const month = date.getMonth()
+    return month === 1 && isLeap(date.getFullYear()) ? 29 : DAYS_IN_MONTH[month]
 }
 
 /**
@@ -330,8 +343,8 @@ export const addTime = (input: DateInput, amount: number, unit: TimeUnit): Date 
 
 const calendarDifference = (left: Date, right: Date, unit: "days" | "months" | "years"): number => {
     if (unit === "days") {
-        const leftDay = Date.UTC(left.getFullYear(), left.getMonth(), left.getDate())
-        const rightDay = Date.UTC(right.getFullYear(), right.getMonth(), right.getDate())
+        const leftDay = utcTime(left.getFullYear(), left.getMonth(), left.getDate())
+        const rightDay = utcTime(right.getFullYear(), right.getMonth(), right.getDate())
         return Math.round((leftDay - rightDay) / MS_PER_DAY)
     }
     const months = (left.getFullYear() - right.getFullYear()) * 12 + (left.getMonth() - right.getMonth())

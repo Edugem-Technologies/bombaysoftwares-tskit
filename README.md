@@ -357,7 +357,7 @@ isSet("null"); // false
 
 ```bash
 npm test           # mocha + ts-node, runs in the Asia/Kolkata time zone for deterministic date tests
-npm run typecheck  # type-checks the tsconfig build and the standalone production build
+npm run typecheck  # typecheck:lib (tsconfig build) + typecheck:dist (mirrors `minifyTS`, which ignores tsconfig and targets ES5)
 npm run build      # emits lib/
 ```
 
