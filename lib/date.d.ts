@@ -11,7 +11,8 @@ export type StartOfUnit = "minute" | "hour" | "day" | "week" | "month" | "year";
  * Converts any supported input into a new `Date` instance (never the same instance that was passed in).
  * Numbers are treated as Unix timestamps in **seconds**. Date-only ISO strings ("2024-03-15") are
  * parsed as local midnight rather than UTC midnight, avoiding off-by-one-day bugs.
- * Invalid input yields an Invalid Date (check with {@link isValidDate}).
+ * Invalid input, including impossible calendar dates such as "2024-02-31" (which the native parser
+ * silently rolls over to 2 March), yields an Invalid Date (check with {@link isValidDate}).
  * @param {DateInput} input - A Date, Unix timestamp in seconds, or ISO string.
  * @example
  * toDate(1695193213); returns Date for 2023-09-20T07:00:13.000Z

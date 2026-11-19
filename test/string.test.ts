@@ -153,6 +153,12 @@ describe("string helpers", () => {
             expect(slugify("Hello World", ".")).to.equal("hello.world")
         })
 
+        it("treats replacement patterns in the separator literally", () => {
+            expect(slugify("Hello World", "$&")).to.equal("hello$&world")
+            expect(slugify("Hello World", "$$")).to.equal("hello$$world")
+            expect(slugify(" Hello World! ", "$1")).to.equal("hello$1world")
+        })
+
         it("returns an empty string when nothing slug-worthy remains", () => {
             expect(slugify("!!!")).to.equal("")
             expect(slugify(undefined as unknown as string)).to.equal("")

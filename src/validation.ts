@@ -3,12 +3,16 @@
  * so they can be used directly in form validation.
  */
 
-// WHATWG HTML email grammar, additionally requiring a dot in the domain (a TLD).
+// WHATWG HTML email grammar with two deliberate tightenings:
+// - the local part is an RFC 5322 dot-atom (no leading, trailing or consecutive dots), which WHATWG allows
+//   but mail providers reject;
+// - the domain must contain a dot (a TLD).
 const EMAIL_PATTERN =
-    /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
+    /^[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+\/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/
 
 /**
- * Checks whether a string is a valid email address (WHATWG HTML grammar, domain must contain a dot).
+ * Checks whether a string is a valid email address: WHATWG HTML grammar, except that the local part
+ * may not start, end or repeat dots, and the domain must contain a dot.
  * @param {unknown} value - The value to check.
  * @example
  * isEmail("john.doe@example.com"); returns true

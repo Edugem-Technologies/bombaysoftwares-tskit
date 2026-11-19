@@ -174,7 +174,8 @@ export const slugify = (text: string, separator = "-"): string => {
         .normalize("NFKD")
         .replace(/[̀-ͯ]/g, "")
         .toLowerCase()
-        .replace(/[^a-z0-9]+/g, separator)
+        // A replacer function keeps "$&", "$1" etc. in the separator literal.
+        .replace(/[^a-z0-9]+/g, () => separator)
         .replace(new RegExp(`^(?:${escapedSeparator})+|(?:${escapedSeparator})+$`, "g"), "")
 }
 

@@ -21,12 +21,30 @@ describe("validation helpers", () => {
     it("isEmail", () => {
         expectAll(
             isEmail,
-            ["john.doe@example.com", "a+tag@sub.example.co.in", "x_y-z@ex-ample.io", "UPPER@EXAMPLE.COM"],
+            [
+                "john.doe@example.com",
+                "john.doe.smith@example.com",
+                "a+tag@sub.example.co.in",
+                "x_y-z@ex-ample.io",
+                "UPPER@EXAMPLE.COM",
+            ],
             true
         )
         expectAll(
             isEmail,
-            ["john@localhost", "john@", "@example.com", "john doe@example.com", "john@-example.com", "", null, 5],
+            [
+                "john@localhost",
+                "john@",
+                "@example.com",
+                "john doe@example.com",
+                "john@-example.com",
+                ".john@example.com",
+                "john.@example.com",
+                "john..doe@example.com",
+                "",
+                null,
+                5,
+            ],
             false
         )
         expect(isEmail(`${"a".repeat(250)}@x.com`)).to.be.false

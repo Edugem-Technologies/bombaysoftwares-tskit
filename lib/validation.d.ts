@@ -1,5 +1,6 @@
 /**
- * Checks whether a string is a valid email address (WHATWG HTML grammar, domain must contain a dot).
+ * Checks whether a string is a valid email address: WHATWG HTML grammar, except that the local part
+ * may not start, end or repeat dots, and the domain must contain a dot.
  * @param {unknown} value - The value to check.
  * @example
  * isEmail("john.doe@example.com"); returns true

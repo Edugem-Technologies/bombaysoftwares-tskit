@@ -46,6 +46,27 @@ describe("date helpers", () => {
             expect(isValidDate(toDate("not a date"))).to.be.false
             expect(isValidDate(toDate(undefined as unknown as string))).to.be.false
         })
+
+        it("rejects impossible calendar dates instead of rolling them over", () => {
+            const impossible = [
+                "2024-02-30",
+                "2023-02-29",
+                "2024-04-31",
+                "2024-13-01",
+                "2024-00-10",
+                "2024-01-00",
+                "2024-02-31T10:00:00", // the native parser would turn these into 2 Mar / 1 Mar
+                "2024-02-30T00:00:00Z",
+            ]
+            impossible.forEach((value) => expect(isValidDate(toDate(value)), value).to.be.false)
+            expect(formatDate("2024-02-31", "YYYY-MM-DD")).to.be.null
+        })
+
+        it("accepts real leap days and keeps years below 100 as-is", () => {
+            expect(toDate("2024-02-29").getDate()).to.equal(29)
+            expect(toDate("2024-02-29T10:00:00Z").toISOString()).to.equal("2024-02-29T10:00:00.000Z")
+            expect(toDate("0099-01-01").getFullYear()).to.equal(99) // not 1999
+        })
     })
 
     describe("isValidDate", () => {

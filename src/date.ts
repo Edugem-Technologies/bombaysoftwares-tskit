@@ -17,6 +17,16 @@ const MS_PER_MINUTE = 60 * MS_PER_SECOND
 const MS_PER_HOUR = 60 * MS_PER_MINUTE
 const MS_PER_DAY = 24 * MS_PER_HOUR
 
+const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+const isLeap = (year: number): boolean => (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+
+/** Whether the year / month (1-12) / day exists on the calendar, e.g. rejects 2023-02-29 and 2024-04-31. */
+const isRealCalendarDate = (year: number, month: number, day: number): boolean => {
+    if (month < 1 || month > 12 || day < 1) return false
+    return day <= (month === 2 && isLeap(year) ? 29 : DAYS_IN_MONTH[month - 1])
+}
+
 const pad = (value: number, length = 2): string => {
     const sign = value < 0 ? "-" : ""
     let digits = String(Math.abs(value))
@@ -28,7 +38,8 @@ const pad = (value: number, length = 2): string => {
  * Converts any supported input into a new `Date` instance (never the same instance that was passed in).
  * Numbers are treated as Unix timestamps in **seconds**. Date-only ISO strings ("2024-03-15") are
  * parsed as local midnight rather than UTC midnight, avoiding off-by-one-day bugs.
- * Invalid input yields an Invalid Date (check with {@link isValidDate}).
+ * Invalid input, including impossible calendar dates such as "2024-02-31" (which the native parser
+ * silently rolls over to 2 March), yields an Invalid Date (check with {@link isValidDate}).
  * @param {DateInput} input - A Date, Unix timestamp in seconds, or ISO string.
  * @example
  * toDate(1695193213); returns Date for 2023-09-20T07:00:13.000Z
@@ -39,9 +50,23 @@ export const toDate = (input: DateInput): Date => {
     if (input instanceof Date) return new Date(input.getTime())
     if (typeof input === "number") return new Date(input * MS_PER_SECOND)
     if (typeof input === "string") {
-        const dateOnly = /^(\d{4})-(\d{2})-(\d{2})$/.exec(input.trim())
-        if (dateOnly) return new Date(Number(dateOnly[1]), Number(dateOnly[2]) - 1, Number(dateOnly[3]))
-        return new Date(input)
+        const value = input.trim()
+        const isoDate = /^(\d{4})-(\d{2})-(\d{2})(?=$|[T\s])/.exec(value)
+        if (isoDate) {
+            const year = Number(isoDate[1])
+            const month = Number(isoDate[2])
+            const day = Number(isoDate[3])
+            if (!isRealCalendarDate(year, month, day)) return new Date(NaN)
+            if (value.length === 10) {
+                // Date-only: local midnight. setFullYear keeps years below 100 as-is
+                // (new Date(99, 0, 1) would be 1999).
+                const date = new Date(0)
+                date.setFullYear(year, month - 1, day)
+                date.setHours(0, 0, 0, 0)
+                return date
+            }
+        }
+        return new Date(value)
     }
     return new Date(NaN)
 }
@@ -252,8 +277,7 @@ export const getDaysInMonth = (input: DateInput): number => {
  * @returns {boolean}
  */
 export const isLeapYear = (yearOrDate: number | Date): boolean => {
-    const year = yearOrDate instanceof Date ? yearOrDate.getFullYear() : yearOrDate
-    return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+    return isLeap(yearOrDate instanceof Date ? yearOrDate.getFullYear() : yearOrDate)
 }
 
 const addMonths = (date: Date, months: number): Date => {
