@@ -1,5 +1,14 @@
 import { MONTH } from "./constants"
 
+export * from "./array"
+export * from "./async"
+export * from "./date"
+export * from "./number"
+export * from "./object"
+export * from "./string"
+export * from "./url"
+export * from "./validation"
+
 /**
  * Checks if the value provided is none of this - null, undefined, empty string, "undefined", empty array as string
  * @param {any} obj - The value to be checked.
@@ -124,11 +133,14 @@ export const getRandomColor = (): string => {
  * @returns {Promise<{ success: boolean, message?: string }>} - A promise that resolves to an object indicating the success status of the copy operation, and an optional error message.
  */
 export const handleCopyToClipboard = async (text: string) => {
-    if (navigator?.clipboard && window?.isSecureContext) {
+    // `typeof` guards are required: optional chaining does not protect against undeclared globals,
+    // so `window?.x` throws a ReferenceError during SSR / in Node.
+    const isSecureContext = typeof window !== "undefined" && window.isSecureContext
+    if (typeof navigator !== "undefined" && navigator.clipboard && isSecureContext) {
         await navigator.clipboard.writeText(text) // Copy the text to the clipboard using the Clipboard API
         return { success: true } // Return success status
     } else {
-        if (!window?.isSecureContext) {
+        if (!isSecureContext) {
             return { success: false, message: "Please host in the secure environment." } // Return error message indicating the need for a secure environment
         }
         return { success: false, message: "Something went wrong" } // Return generic error message
@@ -197,7 +209,7 @@ export const tweleveHourFormat = (hours: number): string => {
 export const getCurrentDateTime = (): string => {
     const date_ob = new Date()
     const date = ("0" + date_ob.getDate()).slice(-2) // adjust 0 before single digit date
-    const month = "0" + (date_ob.getMonth() + 1) // adjust 0 before single digit month
+    const month = ("0" + (date_ob.getMonth() + 1)).slice(-2) // adjust 0 before single digit month
     const year = date_ob.getFullYear() // current year
     const hours = getTwodigitFormat(date_ob.getHours()) // current hours
     const minutes = getTwodigitFormat(date_ob.getMinutes()) // current minutes
@@ -493,7 +505,7 @@ export const formatTimestamp = (timestamp: number): string => {
     // Extract date components
     let date = getTwodigitFormat(Time.getUTCDate())
     let month = getTwodigitFormat(Time.getUTCMonth() + 1)
-    let year = Time.getFullYear()
+    let year = Time.getUTCFullYear()
 
     // Extract time components
     let hours = getTwodigitFormat(Time.getUTCHours())
@@ -598,7 +610,7 @@ export const formatDuration = (totalSeconds: number | null): string => {
  */
 export const millisToMinutesAndSeconds = (millis: number) => {
     let minutes = Math.floor(millis / 60000) // Calculate the number of minutes
-    let seconds = ((millis % 60000) / 1000).toFixed(0) // Calculate the number of seconds
+    let seconds = Math.floor((millis % 60000) / 1000).toString() // Calculate the number of whole seconds (rounding could produce "60")
     let milliseconds = Math.floor(millis % 1000)
         .toString()
         .padStart(3, "0") // Calculate the number of milliseconds

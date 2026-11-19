@@ -60,7 +60,9 @@ describe('getCurrentTimestamp', () => {
 describe('getCurrentDate', () => {
   it('should return the current date in YYYY-MM-DD format', () => {
     const currentDate = getCurrentDate();
-    const expectedDate = new Date().toISOString().slice(0, 10); // Generating a string representation of the current date in the format "YYYY-MM-DD" 
+    // Build the expected value from local date parts; toISOString() is UTC and differs from the local date around midnight.
+    const now = new Date();
+    const expectedDate = [now.getFullYear(), String(now.getMonth() + 1).padStart(2, '0'), String(now.getDate()).padStart(2, '0')].join('-');
     expect(currentDate).to.equal(expectedDate); // Assert that the currentDate matches the expectedDate
   });
 });
